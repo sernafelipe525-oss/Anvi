@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Postventa · Rutas</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f3f5f9;--s1:#ffffff;--s2:#eef2f7;--line:#e1e7f0;--ink:#121c2e;--mut:#667691;
+  --amber:#e8930c;--amber-soft:rgba(232,147,12,.14);--on-amber:#14171f;
+  --ok:#0e9a6c;--bad:#d93d2f;--warn:#b98000;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 6px 18px rgba(15,23,42,.06);--r:16px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0a1220;--s1:#111c2e;--s2:#18263c;--line:#25344d;--ink:#e9eef7;--mut:#8ea0ba;
+  --amber:#ffb547;--amber-soft:rgba(255,181,71,.16);--on-amber:#101a2a;
+  --ok:#3ddc97;--bad:#ff6b5e;--warn:#f0c05a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.28)}}
+:root[data-theme="dark"]{
+  --bg:#0a1220;--s1:#111c2e;--s2:#18263c;--line:#25344d;--ink:#e9eef7;--mut:#8ea0ba;
+  --amber:#ffb547;--amber-soft:rgba(255,181,71,.16);--on-amber:#101a2a;
+  --ok:#3ddc97;--bad:#ff6b5e;--warn:#f0c05a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.28)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Barlow,system-ui,Arial,Helvetica,sans-serif;font-size:16px;line-height:1.4;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:env(safe-area-inset-top,0px);background:var(--s1);z-index:10}
+h1,h2,h3{font-family:'Barlow Condensed',Barlow,system-ui,sans-serif;font-weight:600;margin:0;letter-spacing:.005em}
+h2{font-size:22px;line-height:1.1}h3{font-size:19px;margin:22px 0 10px}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;transition:transform .12s ease,background .2s,border-color .2s}
+button:active{transform:scale(.97)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.i{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* header */
+header#top{position:sticky;top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--s1) 92%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line);padding:14px 16px 12px;z-index:5}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.brand small{color:var(--mut);font-size:13px;font-weight:500;text-transform:capitalize}
+.seg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:none;background:var(--s1);border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--mut);font-weight:600;font-size:14px}
+.seg button.on{background:var(--amber);border-color:var(--amber);color:var(--on-amber);box-shadow:0 4px 12px -4px var(--amber)}
+
+/* layout */
+main{padding:16px;max-width:760px;margin:0 auto;padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+nav#nav{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:color-mix(in srgb,var(--s1) 94%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:6}
+nav#nav button{background:none;border:0;padding:6px 2px;border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--mut);font-size:11.5px;font-weight:600;letter-spacing:.01em}
+nav#nav button .i{width:40px;height:26px;padding:5px 0;box-sizing:content-box;border-radius:999px;transition:background .2s}
+nav#nav button.on{color:var(--ink)}
+nav#nav button.on .i{background:var(--amber-soft);color:var(--amber)}
+
+/* stats */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.kpis div{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:12px 8px;text-align:center;box-shadow:var(--shadow)}
+.kpis b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:30px;line-height:1;font-weight:700}
+.kpis span{font-size:12px;color:var(--mut);font-weight:500}
+.kpis .bad b{color:var(--bad)}.kpis .ok b{color:var(--ok)}
+
+/* cards */
+.card{position:relative;display:flex;gap:12px;align-items:flex-start;background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s ease,border-color .2s}
+.card:hover{border-color:color-mix(in srgb,var(--amber) 45%,var(--line))}
+.card:active{transform:scale(.99)}
+.card.bad{box-shadow:inset 4px 0 0 var(--bad),var(--shadow)}
+.card.warn{box-shadow:inset 4px 0 0 var(--warn),var(--shadow)}
+.card.ok{box-shadow:inset 4px 0 0 var(--ok),var(--shadow)}
+.cb{flex:1;min-width:0}
+.cb p{margin:3px 0 0;color:var(--mut);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--s2);color:var(--mut);border:1px solid transparent}
+.tag.bad{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.tag.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.dots{display:flex;gap:4px;margin-top:10px;flex-wrap:wrap}
+.dots i{width:16px;height:6px;border-radius:4px;background:var(--line)}
+.dots i.no{background:color-mix(in srgb,var(--bad) 70%,transparent)}
+.ib{flex:none;width:42px;height:42px;border-radius:14px;background:var(--s2);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);text-decoration:none}
+.ib:hover{border-color:var(--amber);color:var(--amber)}
+.acts-r{display:flex;flex-direction:column;gap:6px}
+
+/* buttons */
+.bb{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;min-height:52px;border-radius:14px;background:var(--s1);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:16px;box-shadow:var(--shadow)}
+.bb:hover{border-color:var(--amber)}
+.bb.primary{background:linear-gradient(180deg,color-mix(in srgb,var(--amber) 100%,#fff 8%),var(--amber));color:var(--on-amber);border-color:transparent;width:100%;box-shadow:0 8px 20px -8px var(--amber)}
+.bb.ghost{background:none;border:0;box-shadow:none;flex:none;min-height:40px;width:40px;padding:0}
+.big{display:flex;gap:10px;margin:16px 0}
+.hero{margin-top:6px}
+.hero h2{font-size:30px;font-weight:700}
+.hero p{margin:6px 0 0}
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--amber-soft);border:1px solid color-mix(in srgb,var(--amber) 25%,transparent);border-radius:14px;padding:12px 14px;margin:14px 0;font-size:14px;color:var(--ink)}
+.plist{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:6px 14px;box-shadow:var(--shadow)}
+.fam{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:14px 0 4px;display:flex;align-items:center;gap:6px}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.prow:last-child{border-bottom:0}
+.prow>span{font-weight:500}
+.tg{display:flex;gap:6px;flex:none}
+.tg button{width:44px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--s2);color:var(--mut);display:grid;place-items:center}
+.tg button.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.tg button.bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.tg button.on{background:var(--s1);color:var(--ink);border-color:var(--mut)}
+
+/* forms */
+.form{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:14px 0;box-shadow:var(--shadow)}
+label.lb{font-size:12px;color:var(--mut);display:block;margin:12px 0 6px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+input,textarea,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--s2);transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-soft)}
+textarea{resize:vertical}
+.search{display:flex;align-items:center;gap:10px;background:var(--s1);border:1px solid var(--line);border-radius:14px;padding:0 14px;color:var(--mut);box-shadow:var(--shadow)}
+.search:focus-within{border-color:var(--amber);box-shadow:0 0 0 3px var(--amber-soft)}
+.search input{border:0;background:none;padding:14px 0;color:var(--ink);box-shadow:none}
+.search input:focus{box-shadow:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row2>*{min-width:0}
+.cap{font-size:13px;color:var(--mut);margin:14px 0;line-height:1.5}
+.add{display:flex;gap:8px;margin-top:10px}
+.add input{flex:1}
+.add button{width:50px;flex:none;border-radius:14px;background:var(--amber);border:0;color:var(--on-amber);display:grid;place-items:center;box-shadow:0 6px 14px -6px var(--amber)}
+.mut{color:var(--mut)}
+
+/* hist / records */
+.hist{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.hist .top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.hist .actions{display:flex;gap:6px;margin-top:10px;justify-content:flex-end}
+.hist .actions button{width:42px;height:40px;border-radius:12px;background:var(--s2);border:1px solid var(--line);color:var(--ink);display:grid;place-items:center}
+.hist .actions button:hover{border-color:var(--amber);color:var(--amber)}
+.hist .actions button.del:hover{color:var(--bad);border-color:var(--bad)}
+.empty{text-align:center;color:var(--mut);padding:36px 16px;background:var(--s1);border:1px dashed var(--line);border-radius:var(--r)}
+.empty svg{width:38px;height:38px;color:var(--ok);margin-bottom:8px;opacity:.9}
+.empty p{margin:0}
+
+/* sheet/detail */
+.sw{display:inline-block;width:12px;height:12px;border-radius:50%;flex:none;box-shadow:0 0 0 2px var(--s1),0 0 0 3px color-mix(in srgb,var(--ink) 12%,transparent)}
+.sw.big{width:20px;height:20px}
+.stepper{display:flex;align-items:center;gap:4px;flex:none;background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:3px}
+.stepper button{width:36px;height:36px;border-radius:10px;border:0;background:var(--s1);color:var(--ink);display:grid;place-items:center;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.stepper button:hover{color:var(--amber)}
+.stepper input{width:58px;text-align:center;padding:4px 2px;border:0;background:transparent;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px}
+.stepper input:focus{box-shadow:none}
+
+/* objectives */
+.objrow{padding:12px 0;border-bottom:1px solid var(--line)}
+.objrow:last-child{border-bottom:0}
+.objtop,.objbot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:600}
+.bar{height:10px;background:var(--s2);border-radius:99px;overflow:hidden;margin:9px 0;box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
+.bar i{display:block;height:100%;border-radius:99px;transition:width .4s ease}
+.objin{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mut);font-weight:600}
+.objin input{width:96px;padding:8px;text-align:center;font-weight:700}
+.objin input:disabled{opacity:.5}
+.mesnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.mesnav strong{font-family:'Barlow Condensed',sans-serif;font-size:26px;text-transform:capitalize;font-weight:700}
+.mesnav .mini{transform:none}
+details summary{list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"＋";float:right;color:var(--amber);font-weight:700}
+details[open] summary::after{content:"−"}
+
+/* admin */
+.fam-card{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.fam-card .head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.fam-card .head strong{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700}
+.mini{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--s2);color:var(--ink);display:grid;place-items:center}
+.mini:hover{border-color:var(--amber);color:var(--amber)}
+.mini.del:hover{color:var(--bad);border-color:var(--bad)}
+
+.pcs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pc{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mut);background:var(--s1);line-height:1.2}
+.pc b{font-size:13px;line-height:1}
+.pc.yes{background:color-mix(in srgb,var(--c) 16%,transparent);border-color:color-mix(in srgb,var(--c) 70%,transparent);color:var(--ink)}
+.pc.yes b{color:var(--c)}
+.pc.no{color:var(--bad);border-style:dashed;border-color:color-mix(in srgb,var(--bad) 55%,transparent)}
+.cover{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:6px 0 4px;box-shadow:var(--shadow)}
+.cov-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:700}
+.cov-top .mut{font-weight:500;font-size:13px}
+.cover .bar{margin:10px 0 0}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px) scale(.98);opacity:0;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:600;box-shadow:0 12px 30px -8px rgba(0,0,0,.35);transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap;z-index:9;display:flex;gap:8px;align-items:center}
+#toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== modo juego ===== */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}70%{transform:translateY(-2px)}}
+@keyframes draw{from{stroke-dashoffset:var(--c)}to{stroke-dashoffset:var(--off)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--amber) 50%,transparent)}50%{box-shadow:0 0 0 8px transparent}}
+html,body{background:radial-gradient(900px 480px at -5% -10%,rgba(255,181,71,.22),transparent 60%),radial-gradient(800px 460px at 108% 8%,rgba(72,140,255,.18),transparent 60%),radial-gradient(700px 420px at 50% 110%,rgba(255,95,138,.14),transparent 60%),var(--bg);background-attachment:fixed}
+header#top{background:linear-gradient(120deg,var(--s1),color-mix(in srgb,var(--amber) 14%,var(--s1)) 55%,color-mix(in srgb,#7c5cff 10%,var(--s1)))}
+header#top h1{font-size:24px;font-weight:700;background:linear-gradient(90deg,#ffb547,#ff5f8a,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.seg button.on{background:linear-gradient(135deg,#ffb547,#ff5f8a);border-color:transparent;color:#fff;box-shadow:0 6px 16px -6px #ff5f8a}
+.bb.primary{background:linear-gradient(135deg,#ffb547,#ff5f8a 60%,#7c5cff);color:#fff;box-shadow:0 10px 24px -10px #ff5f8a;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+nav#nav{background:color-mix(in srgb,var(--s1) 90%,transparent)}
+nav#nav button.on .i{background:linear-gradient(135deg,#ffb547,#ff5f8a);color:#fff;animation:bounce .55s ease}
+.kpis div{animation:rise .5s ease both}
+.kpis div:nth-child(2){animation-delay:.06s}.kpis div:nth-child(3){animation-delay:.12s}
+.kpis b{animation:pop .6s cubic-bezier(.2,.8,.2,1) both}
+.kpis .ok{background:linear-gradient(160deg,var(--s1),color-mix(in srgb,var(--ok) 16%,var(--s1)))}
+.kpis .bad{background:linear-gradient(160deg,var(--s1),color-mix(in srgb,var(--bad) 14%,var(--s1)))}
+.ruta-hero{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,var(--s1),color-mix(in srgb,#7c5cff 10%,var(--s1)) 50%,color-mix(in srgb,var(--ok) 12%,var(--s1)));border:1px solid var(--line);border-radius:22px;padding:16px;margin:16px 0 4px;box-shadow:var(--shadow);animation:rise .5s ease both}
+.ruta-hero h2{font-size:26px;font-weight:700}
+.ring{flex:none;filter:drop-shadow(0 8px 14px color-mix(in srgb,var(--ok) 35%,transparent))}
+.rt{fill:none;stroke:var(--s2);stroke-width:9}
+.rv{fill:none;stroke:url(#gradRing);stroke-width:9;stroke-linecap:round;transform:rotate(-90deg);transform-origin:40px 40px;animation:draw 1.3s cubic-bezier(.2,.8,.2,1) both}
+.rtx{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;fill:var(--ink)}
+.card{animation:rise .45s ease both;border-radius:20px}
+.card:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(15,23,42,.35)}
+.card.ok{background:linear-gradient(90deg,color-mix(in srgb,var(--ok) 9%,var(--s1)),var(--s1) 40%)}
+.card.bad{background:linear-gradient(90deg,color-mix(in srgb,var(--bad) 8%,var(--s1)),var(--s1) 40%)}
+.card.warn{background:linear-gradient(90deg,color-mix(in srgb,var(--warn) 9%,var(--s1)),var(--s1) 40%)}
+.card .ib{border-radius:14px;transition:transform .15s}
+.card .ib:hover{transform:scale(1.08)}
+.tag{border-radius:999px}
+.tag.bad{background:color-mix(in srgb,var(--bad) 16%,transparent)}
+.pc{transition:transform .2s;animation:pop .4s cubic-bezier(.2,.8,.2,1) both}
+.pc:hover{transform:translateY(-1px) scale(1.04)}
+.pc.yes{box-shadow:0 4px 10px -6px var(--c)}
+.pc.no{background:color-mix(in srgb,var(--bad) 6%,var(--s1))}
+.cover{background:linear-gradient(135deg,var(--s1),color-mix(in srgb,var(--amber) 9%,var(--s1)));border-radius:20px;animation:rise .45s ease both}
+.cov-top span:first-child{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700}
+.bar{height:12px;background:linear-gradient(90deg,var(--s2),var(--s2));border-radius:99px}
+.bar i{transform-origin:left;animation:grow 1s cubic-bezier(.2,.8,.2,1) both;background-image:linear-gradient(90deg,rgba(255,255,255,.25),transparent 60%)!important;border-radius:99px}
+.win{color:var(--ok);font-weight:800;animation:pop .5s cubic-bezier(.2,.8,.2,1) both}
+.fam{font-size:12px}
+.form{border-radius:20px}
+.prow{transition:background .2s;border-radius:12px}
+.prow:hover{background:color-mix(in srgb,var(--amber) 6%,transparent)}
+.tg button{transition:transform .15s,background .2s}
+.tg button:active{transform:scale(.9)}
+.tg button.ok{box-shadow:0 6px 12px -6px var(--ok)}
+.tg button.bad{box-shadow:0 6px 12px -6px var(--bad)}
+.stepper button:active{transform:scale(.88)}
+.hist{border-radius:20px;animation:rise .4s ease both}
+.empty{border-radius:20px;background:linear-gradient(135deg,var(--s1),color-mix(in srgb,#7c5cff 8%,var(--s1)))}
+.empty svg{animation:pop .6s cubic-bezier(.2,.8,.2,1) both}
+#toast{background:linear-gradient(135deg,#7c5cff,#ff5f8a);color:#fff;animation:pop .35s cubic-bezier(.2,.8,.2,1)}
+</style></head>
+<body>
+<header id="top"></header>
+<main id="app"></main>
+<nav id="nav" aria-label="Secciones"></nav>
+<div id="toast" role="status"></div>
+<script>
+const DATA=[{"d": "LUNES", "c": "120305", "n": "CAFÉ MAJADERITOS", "a": "CADIZ 9", "p": "PILAR", "t": "676225702", "o": ""}, {"d": "LUNES", "c": "070226", "n": "PIGNIC IBERICO", "a": "TETUAN 19", "p": "CRISTIAN", "t": "910564889", "o": ""}, {"d": "LUNES", "c": "500373", "n": "CERV. LA ALEMANA sch,eg", "a": "PZA SANTA ANA 6", "p": "JESUS", "t": "600855392", "o": ""}, {"d": "LUNES", "c": "120301", "n": "OCACHO sch san miguel", "a": "PZA SANTA ANA 5", "p": "ELIAS", "t": "615691102", "o": ""}, {"d": "LUNES", "c": "140065", "n": "TRUCHA TANQUE", "a": "MANUEL FDEZ GONZALEZ 5", "p": "MARGARITA", "t": "622531522", "o": "gestion@anvidistribuciones.es; admon@anvidistribuciones.es; mvaldivieso@anvidistribuciones.es; PEDIR LUNES, SERVICIO MIERCOLES"}, {"d": "LUNES", "c": "120338", "n": "CERV. POSTAS sch", "a": "POSTAS 13", "p": "CARLOS", "t": "640217143", "o": ""}, {"d": "LUNES", "c": "120325", "n": "EL ARRABAL doble", "a": "PZA MAYOR 23", "p": "ANGELO-IGOR", "t": "689411581", "o": "PASA PEDIDOS LOS DOMINGOS"}, {"d": "LUNES", "c": "120436", "n": "ZARRA sch doble", "a": "PZA MAYOR 13", "p": "ALBERTO", "t": "690309473", "o": ""}, {"d": "LUNES", "c": "120273", "n": "TINEO BAR", "a": "PZA MAYOR 14", "p": "ALBERTO", "t": "690309473", "o": "MISMO DUEÑO"}, {"d": "LUNES", "c": "120286", "n": "BAR LOS ARCOS N/R", "a": "PZA MAYOR 1", "p": "BEATRIZ", "t": "629264685", "o": "LLAMA ELLA"}, {"d": "LUNES", "c": "130064", "n": "MERCADO DEL JAMON", "a": "MAYOR 80", "p": "JAVIER", "t": "659562200", "o": ""}, {"d": "LUNES", "c": "120477", "n": "LA MANSILLA", "a": "POSTAS 1", "p": "CHEMA", "t": "693742289", "o": ""}, {"d": "LUNES", "c": "120409", "n": "EL ROCIO BAR", "a": "PSJE MATHEU2", "p": "RAFA-JUAN", "t": "602473296", "o": ""}, {"d": "LUNES", "c": "120311", "n": "LAS BRAVAS PSJE MATHEU sch", "a": "PJE MATHEU 5", "p": "DANI", "t": "682057770", "o": ""}, {"d": "LUNES", "c": "120290", "n": "MEJILLONERIA EL PASAJE", "a": "PSJE MATHEU 1", "p": "RAFA", "t": "915215155", "o": ""}, {"d": "LUNES", "c": "120310", "n": "LAS BRAVAS ALVAREZ GATO", "a": "ALVAREZ GATO 3", "p": "JULIO", "t": "675068924", "o": ""}, {"d": "LUNES", "c": "120547", "n": "LA OREJA DE JAIME", "a": "CRUZ 15", "p": "IONUT", "t": "642085364", "o": "GRUPO WHATSAPP CASA VICTORIA"}, {"d": "LUNES", "c": "10212", "n": "LA TINTORERIA eg TANQUE", "a": "BARCELONA 9", "p": "PEDRO", "t": "686934709", "o": "PEDIR JUSTIFICANTE PAGO DE TANQUE · MANDAR CORREOS PARA TANQUE. madrid@estrellagalicia.com; asierra@estrellagalicia.es; cgarrido@estrellagalicia.es; drumbo@estrellagalicia.es"}, {"d": "LUNES", "c": "120295", "n": "LA OTRA TINTORERIA eg", "a": "ESPOZ Y MINA 20", "p": "PEDRO", "t": "686934709", "o": ""}, {"d": "LUNES", "c": "120350", "n": "TAPAS Y MAS sch", "a": "ESPOZ Y MINA 18", "p": "FRAN", "t": "625258078", "o": ""}, {"d": "LUNES", "c": "130054", "n": "DADAM", "a": "FACTOR 8", "p": "GRACE", "t": "699594865", "o": ""}, {"d": "LUNES", "c": "130033", "n": "LA LONJA DEL MAR", "a": "PZA DE ORIENTE 6", "p": "POLI", "t": "662964510", "o": ""}, {"d": "LUNES", "c": "010146", "n": "JAMONES JULIAN BECERRO", "a": "ARENAL 28", "p": "JAVIER", "t": "622249390", "o": "ESCRIBIR POR WHATSAPP A POLI"}, {"d": "LUNES", "c": "10083", "n": "PULPERIA VICTORIA", "a": "VICTORIA 2", "p": "RAQUEL", "t": "637551302", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120318", "n": "ROSI LA LOCA", "a": "CADIZ 4", "p": "PAOLO", "t": "632077649", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120354", "n": "CUEVAS DEL SECRETO", "a": "BARCELONA 2", "p": "JOSE", "t": "665235128", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120335", "n": "SALA SAMSARA PEPSI", "a": "DE LA CRUZ 7", "p": "JUAN CARLOS", "t": "683436304", "o": "POR WHATSAPP PEPSI PEDIDOS"}, {"d": "LUNES", "c": "120303", "n": "SALON RECREATIVO", "a": "ESPOZ Y MINA 2", "p": "", "t": "689554139", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "10218", "n": "REST.D`CORAZON", "a": "PZA MAYOR 30", "p": "MARIO", "t": "607216519", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120334", "n": "SALA LA CARTUJA PEPSI", "a": "DE LA CRUZ 10", "p": "JUAN CARLOS", "t": "683436304", "o": "POR WHATSAPP PEPSI PEDIDOS"}, {"d": "LUNES", "c": "120386", "n": "AMBIGU TEATRO", "a": "PRINCIPE 25", "p": "YERAI", "t": "654198820", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120425", "n": "LA CASA DEL ABUELO", "a": "NUÑEZ DE ARCE 5", "p": "RAQUEL", "t": "653458504", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120423", "n": "LA CASA DEL ABUELO", "a": "VICTORIA 12", "p": "RAQUEL", "t": "653458504", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120426", "n": "LA CASA DEL ABUELO", "a": "CRUZ 11", "p": "RAQUEL", "t": "653458504", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120516", "n": "LA LOCA WORLD", "a": "CADIZ 7", "p": "PAOLO", "t": "602565652", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "50656", "n": "BAHIANA CLUB", "a": "DEL CONDE 4", "p": "RAUL", "t": "669761121", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "50357", "n": "ATENAS TERRAZA", "a": "SEGOVIA S/N", "p": "MARCO", "t": "686149802", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120448", "n": "PENSION MIMOSAS", "a": "MARQUES DE PONTEJOS", "p": "KISIC", "t": "3132687201", "o": "PEDIDO POR WHATSAPP"}, {"d": "LUNES", "c": "120543", "n": "CASA VICTORIA", "a": "CRUZ 14", "p": "IONUT", "t": "642085364", "o": "GRUPO WHATSAPP CASA VICTORIA"}, {"d": "MARTES", "c": "120544", "n": "MANTEQUERIAS SOLMINA", "a": "ESPOZ Y MINA 3", "p": "JUAN", "t": "695249229", "o": ""}, {"d": "MARTES", "c": "120277", "n": "BAR DIXIE", "a": "PZA SANTA CRUZ 5", "p": "EDUARDO", "t": "686979217", "o": ""}, {"d": "MARTES", "c": "120535", "n": "PUERTA DEL SOL MESON", "a": "CARRETAS 29", "p": "SEBA", "t": "642483637", "o": ""}, {"d": "MARTES", "c": "120299", "n": "MATADOR BAR", "a": "CRUZ 39", "p": "JUAN,PAOLA,PABLO", "t": "661050645", "o": "PROMOCION EG 5+1 EN TERCIO CON DTO"}, {"d": "MARTES", "c": "120460", "n": "CASA AMBROSIO", "a": "BOLSA 3 LOCAL 1", "p": "JUAN", "t": "661050645", "o": ""}, {"d": "MARTES", "c": "120557", "n": "ESENZIAS SPAM", "a": "CRUZ 28", "p": "JULIA", "t": "655796746", "o": "LLAMA ELLA"}, {"d": "MARTES", "c": "120330", "n": "LA ABACERIA DEL PRINCIPE", "a": "PRINCIPE 18 IZQUI", "p": "JUAN", "t": "647461530", "o": "PEDIDO POR WHATSAPP SOLO VINOS E. G."}, {"d": "MARTES", "c": "120269", "n": "BAROGRAFO REST.", "a": "PRINCIPE 10", "p": "FEDERICO", "t": "676860815", "o": ""}, {"d": "MARTES", "c": "120294", "n": "TAPAS LA MARMITA eg", "a": "PRINCIPE 3", "p": "JOSE", "t": "651968135", "o": ""}, {"d": "MARTES", "c": "120463", "n": "LA DESCUBIERTA sch,eg", "a": "BARCELONA 12", "p": "ANA", "t": "642891470", "o": ""}, {"d": "MARTES", "c": "120579", "n": "LEON V", "a": "PZA DE LA PROVINCIA 3", "p": "ARO", "t": "620781411", "o": ""}, {"d": "MARTES", "c": "130056", "n": "OINK", "a": "ARENAL 14", "p": "SARA", "t": "711707493", "o": "PEDIDO POR WHATSAPP"}, {"d": "MARTES", "c": "063952", "n": "CAFÉ BAR REAL", "a": "PZA ISABEL SEGUNDA 2", "p": "", "t": "915472124", "o": ""}, {"d": "MARTES", "c": "060123", "n": "PAELLA REAL", "a": "ARRIETA 2", "p": "MONICA/AURELIO", "t": "915420942", "o": ""}, {"d": "MARTES", "c": "130067", "n": "YUMAWINEBAR", "a": "ARRIETA 5", "p": "DIANA", "t": "680670684", "o": ""}, {"d": "MARTES", "c": "013005", "n": "ULTRAMARINOS LA GENUINA", "a": "ARRIETA 9", "p": "JUAN PABLO", "t": "663292608", "o": ""}, {"d": "MARTES", "c": "010156", "n": "SEÑOR VAZQUEZ", "a": "PZA DE LA MARINA ESPAÑOLA 4", "p": "LUIS", "t": "915993548", "o": ""}, {"d": "MARTES", "c": "010215", "n": "LIBRERÍA LA BUENA VIDA", "a": "VERGARA 5", "p": "JESUS", "t": "911398110", "o": ""}, {"d": "MARTES", "c": "010188", "n": "RESTAURANTE REFRA", "a": "SANTIAGO 4", "p": "JUAN", "t": "915595410", "o": ""}, {"d": "MARTES", "c": "130029", "n": "LA DOLCE VITA", "a": "SANTIAGO 4", "p": "", "t": "691541139", "o": ""}, {"d": "MARTES", "c": "010127", "n": "LA ESQUINITA", "a": "SANTIAGO 4", "p": "MARTIN", "t": "646600653", "o": ""}, {"d": "MARTES", "c": "050758", "n": "KECHUA", "a": "DE LAS FUENTES 9", "p": "MAX", "t": "628937313", "o": ""}, {"d": "MARTES", "c": "050635", "n": "LA EXCENTRICA", "a": "DE LAS FUENTES 10", "p": "CARLOS", "t": "695478680", "o": ""}, {"d": "MARTES", "c": "130019", "n": "RESTAURANTE ÑERU", "a": "BORDADORES 5", "p": "FERNANDO", "t": "673986792", "o": ""}, {"d": "MARTES", "c": "500250", "n": "LA CASA GALLEGA", "a": "BORDADORES 11", "p": "MANOLO", "t": "915419055", "o": ""}, {"d": "MARTES", "c": "120499", "n": "CASA DE LAS TORRIJAS", "a": "PAZ 4", "p": "JUAN", "t": "910252902", "o": ""}, {"d": "MARTES", "c": "120298", "n": "REST CARDEÑA sch", "a": "PZA ANGEL 2", "p": "ALBA", "t": "633260592", "o": ""}, {"d": "MARTES", "c": "120309", "n": "CERV SANTA ANA sch", "a": "PZA SANTA ANA 10", "p": "BALDOMERO", "t": "620361549", "o": ""}, {"d": "MARTES", "c": "120358", "n": "EL CALDERO", "a": "HUERTAS 15", "p": "JUAN", "t": "914295044", "o": ""}, {"d": "MARTES", "c": "120308", "n": "CASA ALBERTO sch", "a": "HUERTAS 18", "p": "ELISEO", "t": "650940456", "o": ""}, {"d": "MARTES", "c": "120500", "n": "CASA SAN JUAN", "a": "HUERTAS 10", "p": "DELIA", "t": "666057083", "o": ""}, {"d": "MARTES", "c": "120541", "n": "TABERNA POMPEYANA", "a": "ALVAREZ GATO 5", "p": "EMILIANO", "t": "695834544", "o": ""}, {"d": "MARTES", "c": "120573", "n": "BRASAS DE VULCANO", "a": "ALVAREZ GATO 7", "p": "JONA", "t": "658445828", "o": ""}, {"d": "MARTES", "c": "120575", "n": "LA TIA CEBOLLA", "a": "CRUZ 27", "p": "EMILIANO", "t": "695834544", "o": ""}, {"d": "MARTES", "c": "120466", "n": "TABERNA MELIBEA", "a": "ESPOZ Y MINA 9", "p": "TAREK", "t": "632298279", "o": ""}, {"d": "MARTES", "c": "120502", "n": "CLUB PICKWICK", "a": "ESPOZ Y MINA 6", "p": "DALTON", "t": "632262386", "o": ""}, {"d": "MARTES", "c": "120336", "n": "SALA MANAMA PEPSI", "a": "BARCELONA 14", "p": "IGNACIO", "t": "620946790", "o": "POR WHATSAPP PEPSI PEDIDOS"}, {"d": "MARTES", "c": "120326", "n": "CASA VARONA", "a": "PZA MATUTE 13", "p": "JUAN CARLOS", "t": "620016596", "o": "PEDIDO POR WHATSAPP SOLO VINOS E. G."}, {"d": "MARTES", "c": "120416", "n": "EL QUINTO ELEMENTO", "a": "ATOCHA 125", "p": "PILAR", "t": "669396541", "o": "PEDIDO POR WHATSAPP SOLO VINOS E. G."}, {"d": "MARTES", "c": "120314", "n": "EMBABIA PEPSI", "a": "NUÑEZ DE ARCE 9", "p": "FER", "t": "608890000", "o": "POR WHATSAPP PEDIDO REFRESCO"}, {"d": "MARTES", "c": "120313", "n": "COMMO PEPSI", "a": "ESPOZ Y MINA22", "p": "FER", "t": "608890000", "o": "POR WHATSAPP PEDIDO REFRESCO"}, {"d": "MARTES", "c": "120322", "n": "INCLAN BRUTAL BAR", "a": "ALVAREZ GATO 4", "p": "MANUEL", "t": "631311307", "o": "PEDIDO POR WHATSAPP"}, {"d": "MARTES", "c": "120337", "n": "BANDIDA PEPSI", "a": "DE LA CRUZ 8", "p": "JUAN", "t": "626721633", "o": "PEDIDO POR WHATSAPP"}, {"d": "MARTES", "c": "120312", "n": "PLANET PEPSI", "a": "PRINCIPE 20", "p": "JUAN CARLOS", "t": "608890000", "o": "POR WHATSAPP PEDIDOS REFRESCO"}, {"d": "MARTES", "c": "140042", "n": "DIEGO CASA COMIDAS", "a": "LEON 8", "p": "JUAN CARLOS", "t": "620016596", "o": "PEDIDO POR WHATSAPP SOLO VINOS E. G."}, {"d": "MARTES", "c": "140038", "n": "QUIROGA ALIMENTACION", "a": "HUERTAS 19", "p": "JUAN CARLOS", "t": "620016596", "o": "PEDIDO POR WHATSAPP SOLO VINOS E. G."}, {"d": "MARTES", "c": "120351", "n": "EL PEZ TORTILLA", "a": "ESPOZ Y MINA 13", "p": "JULIA", "t": "622411423", "o": "PEDIDO POR WHATSAPP MARTES CERRADO"}, {"d": "MARTES", "c": "120378", "n": "NEGRA TOMASA", "a": "CADIZ 9", "p": "DAVID -RUTH", "t": "653455038", "o": "PEDIDO POR WHATSAPP SERVIR JUEVES"}, {"d": "MIERCOLES", "c": "74994", "n": "CAFÉ BAR HYLOGUI eg", "a": "VENTURA DE LA VEGA 3 IZQ", "p": "HECTOR", "t": "696470516", "o": ""}, {"d": "MIERCOLES", "c": "500377", "n": "CAFÉ EL CHICO eg", "a": "ZORRILLA 23", "p": "JAVIER", "t": "696535557", "o": ""}, {"d": "MIERCOLES", "c": "140028", "n": "MADRAZOS", "a": "LOS MADRAZOS 26", "p": "JOSE", "t": "665673476", "o": ""}, {"d": "MIERCOLES", "c": "140058", "n": "TABERNA EL GATO", "a": "ARLABAN 9", "p": "JAVIER", "t": "669419675", "o": ""}, {"d": "MIERCOLES", "c": "140070", "n": "DOCC PRADO", "a": "PRADO 28", "p": "LUIS", "t": "913697614", "o": ""}, {"d": "MIERCOLES", "c": "010220", "n": "BAREHUA", "a": "LEON 23", "p": "ALINHO", "t": "674969075", "o": ""}, {"d": "MIERCOLES", "c": "120527", "n": "PASTELERIA AMERICA", "a": "ATOCHA 77", "p": "PILAR", "t": "914290152", "o": "LATAS,AGUA Y PRODUCTOS DE LIMPIEZA"}, {"d": "MIERCOLES", "c": "120024", "n": "BAR LA VERA", "a": "ATOCHA 57", "p": "VICKY", "t": "636071828", "o": ""}, {"d": "MIERCOLES", "c": "140053", "n": "EL SECRETO DE LAS LETRAS eg", "a": "SANTA MARIA 30", "p": "DIEGO", "t": "690806406", "o": ""}, {"d": "MIERCOLES", "c": "140061", "n": "LOS GARZOS", "a": "DE JESUS 10", "p": "JOSE", "t": "722236323", "o": "AGUA AUARA"}, {"d": "MIERCOLES", "c": "14001", "n": "BAR IRAKLI", "a": "PSO REINA CRISTINA 23", "p": "TERESA", "t": "608320637", "o": "CIERRA LUNES POR DESCANSO"}, {"d": "MIERCOLES", "c": "500125", "n": "MARUXA CERV.", "a": "GUTEMBERG 16", "p": "ROCIO", "t": "603315558", "o": ""}, {"d": "MIERCOLES", "c": "140032", "n": "BAR FOMENTO", "a": "ALFONSO XII 60", "p": "JOSE", "t": "915308701", "o": "N/R"}, {"d": "MIERCOLES", "c": "140062", "n": "MORETO 17", "a": "MORETO 17", "p": "ELIANA", "t": "618629767", "o": ""}, {"d": "MIERCOLES", "c": "140063", "n": "MURILLO REST.", "a": "RUIZ DE ALARCON 27", "p": "GUILLERMO", "t": "691809528", "o": "NORMALMENTE PEDIDO POR CHOCO"}, {"d": "MIERCOLES", "c": "140066", "n": "REST LEYGA", "a": "ALBERTO BOSCH", "p": "JAVIER", "t": "914202997", "o": ""}, {"d": "MIERCOLES", "c": "140069", "n": "STILLROOM", "a": "MORETO 9", "p": "ENZO", "t": "692589904", "o": "LLAMAR PARA PEDIDO"}, {"d": "MIERCOLES", "c": "14014", "n": "JERONIMOS", "a": "DE LA ACADEMIA 5", "p": "JAIME", "t": "677959187", "o": ""}, {"d": "MIERCOLES", "c": "140064", "n": "RUGE LA BARRA", "a": "PZA DE LA LEALTAD 3", "p": "ANGEL", "t": "627942790", "o": ""}, {"d": "MIERCOLES", "c": "140043", "n": "ADREDE REST", "a": "ALFONSO XI 13", "p": "MARCO", "t": "665177794", "o": ""}, {"d": "MIERCOLES", "c": "140067", "n": "CAFETERIA ALFONSO XI", "a": "ALFONSO XI 13", "p": "DARWING", "t": "610923390", "o": ""}, {"d": "MIERCOLES", "c": "140057", "n": "LOS JERONIMOS CERVE.", "a": "ALFONSO XI 13", "p": "MIGUEL ANGEL", "t": "676296278", "o": ""}, {"d": "MIERCOLES", "c": "140056", "n": "ENOC REST.", "a": "ALFONSO XI 2", "p": "ADRIAN", "t": "600862746", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140025", "n": "RUSTICO", "a": "ECHEGARAY 5", "p": "SANTIAGO", "t": "618208409", "o": ""}, {"d": "MIERCOLES", "c": "140072", "n": "VINUMPLAY", "a": "LOPE DE VEGA 9", "p": "ROSA", "t": "663088644", "o": ""}, {"d": "MIERCOLES", "c": "130039", "n": "GAYAGUM", "a": "ARRIETA 13", "p": "YON", "t": "652144993", "o": ""}, {"d": "MIERCOLES", "c": "070223", "n": "RESTAURANTE EL BUEY", "a": "MARINA ESPAÑOLA 1", "p": "CARMEN", "t": "667291275", "o": ""}, {"d": "MIERCOLES", "c": "130068", "n": "ITS PINSA", "a": "UNION 5", "p": "ENZO", "t": "692589904", "o": ""}, {"d": "MIERCOLES", "c": "140034", "n": "JAMONERIA ARTE IBERICO eg", "a": "PZA DE JESUS 3", "p": "PEDRO", "t": "694294615", "o": "PEDIDO POR WHATSAPP · TERCIOS 3+1 CON 27% DE DTO"}, {"d": "MIERCOLES", "c": "140071", "n": "LA CUEVA DEL CANTABRICO", "a": "SANTA MARIA 33", "p": "ROLANDO", "t": "642084104", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140015", "n": "TOBYS BRUNCH", "a": "SAN AGUSTIN 18", "p": "ENMA", "t": "695607324", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140047", "n": "JAMES JOYCE IRISH PUB EG", "a": "ALCALA 59", "p": "SAULO", "t": "618244945", "o": "CUANDO HAGA PEDIDO MANDAR A JEFE DE EQUIPO · PASAR A MARIANO PEDIDOS PARA TRAMITARLOS POR CORREO"}, {"d": "MIERCOLES", "c": "140019", "n": "PIZZA NATURA eg", "a": "JOVELLANOS 6", "p": "GABRIEL", "t": "643112955", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "14009", "n": "LA MEJOR TARTA DE CHOCO", "a": "CERVANTES 9", "p": "ISABEL", "t": "634500986", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140026", "n": "KARAOKE BATELO", "a": "INFANTE 8", "p": "CRISS", "t": "695783652", "o": "MISMO DUEÑO PEDIDO WHATSAPP"}, {"d": "MIERCOLES", "c": "140027", "n": "DOMI FRENCH", "a": "ECHEGARAY 27 LOCAL 3", "p": "CRISS", "t": "695783652", "o": "MISMO DUEÑO PEDIDO WHATSAPP"}, {"d": "MIERCOLES", "c": "50642", "n": "KITCHEN 154", "a": "CONDE 1", "p": "MARIA JOSE", "t": "658751787", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "500114", "n": "CANTINA BELESAR I", "a": "DE JESUS 7", "p": "MARIA", "t": "600765924", "o": "PEDIDO POR WHATSAPP MISMO DUEÑO"}, {"d": "MIERCOLES", "c": "500093", "n": "CANTINA BELESAR", "a": "HUERTAS 64", "p": "MARIA", "t": "600765924", "o": "PEDIDO POR WHATSAPP MISMO DUEÑO"}, {"d": "MIERCOLES", "c": "500179", "n": "TABERNA MACEIRA II", "a": "HUERTAS 66", "p": "MARIA", "t": "600765924", "o": "PEDIDO POR WHATSAPP MISMO DUEÑO"}, {"d": "MIERCOLES", "c": "120380", "n": "SALA TORERO PEPSI", "a": "DE LA CRUZ 26", "p": "CLARET", "t": "635039565", "o": "POR WHATSAPP PEPSI PEDIDOS"}, {"d": "MIERCOLES", "c": "10181", "n": "CHUKA RAMEN BAR", "a": "ECHEGARAY 9", "p": "LORENA", "t": "675286822", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140046", "n": "EL NEGRO", "a": "VENTURA DE LA VEGA 21", "p": "ELENA", "t": "646656375", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "120516", "n": "LA LOCA WORLD doble", "a": "CADIZ 7", "p": "PAOLO", "t": "602565652", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "120021", "n": "AXEL HOTEL", "a": "ATOCHA 49", "p": "", "t": "669416875", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "50636", "n": "TABLAO DE LAS CARBONERAS", "a": "CONDE MIRANDA 1", "p": "KIKE", "t": "676469669", "o": "KIKE HACE EL PEDIDO"}, {"d": "MIERCOLES", "c": "50636", "n": "TABLAO DE LAS CARBONERAS", "a": "CONDE MIRANDA 2", "p": "ERNESTO", "t": "619468083", "o": "MANDAR IMPORTE Y MANDAR JUSTIFICANTE"}, {"d": "MIERCOLES", "c": "120340", "n": "SALA INDEPENDANCE CLUB PEPSI", "a": "ATOCHA 125 LOCAL 2", "p": "ELSA", "t": "655326333", "o": "WHATSAPP GRUPO INDEPENDENCE"}, {"d": "MIERCOLES", "c": "140014", "n": "MULLER", "a": "HUERTAS 38", "p": "FABIAN", "t": "656235006", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "120130", "n": "ATOCHA HOTEL", "a": "ATOCHA 107", "p": "", "t": "631634572", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "120312", "n": "PLANET PEPSI", "a": "PRINCIPE 20", "p": "JUAN CARLOS", "t": "608890000", "o": "POR WHATSAPP PEDIDOS REFRESCO"}, {"d": "MIERCOLES", "c": "140044", "n": "DESLEAL", "a": "MORATIN 16", "p": "AKE", "t": "665716458", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "500316", "n": "EL EDEN DE HUERTAS", "a": "HUERTAS 67", "p": "OSLAN", "t": "667904726", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "500251", "n": "JAZZ BAR eg", "a": "MORATIN 35", "p": "SUSO", "t": "678731285", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140040", "n": "LA FILOMENA", "a": "LOPE DE VEGA 15", "p": "DARIO Y RITA", "t": "634152847", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140006", "n": "ASKUABARRA", "a": "ARLABAN 7 BAJO", "p": "YOLANDA", "t": "687246386", "o": "PEDIDO POR WHATSAPP VINOS ESTRELLA"}, {"d": "MIERCOLES", "c": "130045", "n": "PEOR PARA EL SOL", "a": "DE LA UNION 2", "p": "ISAAC", "t": "650797984", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "130069", "n": "VERTIGO", "a": "SILVA 2", "p": "MARIA", "t": "658171950", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "140060", "n": "NUBE Y RAYO", "a": "LOS MADRAZOS 12", "p": "JULIAN", "t": "611814942", "o": "PEDIDO POR WHATSAPP"}, {"d": "MIERCOLES", "c": "050522", "n": "AHUMADOS DOMINGUEZ", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "HUGO", "t": "699788331", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050671", "n": "ALCARAVEA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BIANCA", "t": "610652488", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050714", "n": "FUERZA LA HOJALDRERIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BELEN", "t": "681294852", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050634", "n": "LA HORA DEL VERMUT", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "", "t": "691032913", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050743", "n": "CARRITO SPRITZERIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "ANA", "t": "600992015", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050672", "n": "MADREAMIGA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "LUCIA", "t": "674797002", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050716", "n": "VINOS Y QUESOS", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BEA", "t": "628608315", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050515", "n": "QUESOBA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "ELENA", "t": "634291313", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050528", "n": "PRIMITAL STREET MEAT", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "FRANCIS", "t": "634977738", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050346", "n": "FELIXIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "INGRID", "t": "639273772", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050517", "n": "PAELLA POWER", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "EDU", "t": "623368863", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050539", "n": "TATAUN", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "SURYA", "t": "652246777", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050599", "n": "SEÑOR MARTIN", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "DAVID", "t": "625486449", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050518", "n": "PICOLISTO", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "PAULA", "t": "659894201", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050673", "n": "MAS GOURMET CHARCUTERIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "CURRO", "t": "637305598", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050419", "n": "PINKLETON & WINE", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BEA", "t": "620050259", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050759", "n": "BAOLE", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "ZENNI", "t": "636818163", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050514", "n": "MOZZHEART", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "", "t": "685765936", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "MIERCOLES", "c": "050443", "n": "OSTRAS DANIEL SORLUT", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "TONY", "t": "626781571", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "JUEVES", "c": "120354", "n": "CUEVAS DEL SECRETO doble", "a": "BARCELONA 2", "p": "JOSE", "t": "665235128", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "120287", "n": "EL TIEMPO PERDIDO", "a": "BARCELONA 4", "p": "SANDRA", "t": "627084888", "o": ""}, {"d": "JUEVES", "c": "500144", "n": "RIAS ALTAS CERV.", "a": "ATOCHA 67", "p": "MOICA", "t": "620017479", "o": ""}, {"d": "JUEVES", "c": "070226", "n": "PIGNIC IBERICO", "a": "TETUAN 19", "p": "CRISTIAN", "t": "910564889", "o": ""}, {"d": "JUEVES", "c": "10218", "n": "REST D`CORAZON doble", "a": "PZA MAYOR 30", "p": "MARIO", "t": "607216519", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "120325", "n": "EL ARRABAL doble", "a": "PZA MAYOR 23", "p": "ANGELO-IGOR", "t": "689411581", "o": ""}, {"d": "JUEVES", "c": "120273", "n": "TINEO BAR", "a": "PZA MAYOR 14", "p": "ALBERTO", "t": "690309473", "o": "MISMO DUEÑO"}, {"d": "JUEVES", "c": "120436", "n": "ZARRA doble", "a": "PZA MAYOR 13", "p": "ALBERTO", "t": "690309473", "o": "MISMO DUEÑO"}, {"d": "JUEVES", "c": "120368", "n": "GUSTOS MADRID", "a": "PZA MAYOR 8", "p": "JOSE LUIS", "t": "913664030", "o": ""}, {"d": "JUEVES", "c": "120274", "n": "CERVECERIA JACINTA", "a": "PZA MAYOR 4", "p": "JAIME", "t": "912535191", "o": ""}, {"d": "JUEVES", "c": "120316", "n": "CERV.PZA MAYOR", "a": "PZA MAYOR 2", "p": "NORBERTO", "t": "913650645", "o": ""}, {"d": "JUEVES", "c": "50456", "n": "CASA RUA", "a": "CIUDAD RODRIGO 3", "p": "JOHN", "t": "915427074", "o": ""}, {"d": "JUEVES", "c": "50533", "n": "TABERNA SAN MIGUEL", "a": "TRV.DE BRINGAS 1", "p": "CRIS", "t": "676243894", "o": "PEDIDO POR WHATSAPP · LATAS"}, {"d": "JUEVES", "c": "50529", "n": "EDUARDOS", "a": "CAVA SAN MIGUEL 2", "p": "LUIS", "t": "915418550", "o": ""}, {"d": "JUEVES", "c": "50530", "n": "LA PLAZA CAFET.", "a": "PZA SAN MIGUEL 2", "p": "CORNELIO", "t": "915484111", "o": ""}, {"d": "JUEVES", "c": "50407", "n": "CAFÉ DEL MONAGUILLO", "a": "PZA CRUZ VERDE 3", "p": "CAROLINA", "t": "915429385", "o": ""}, {"d": "JUEVES", "c": "50449", "n": "CASA LA MALICIA", "a": "SEGOVIA 16", "p": "MARCO", "t": "620632986", "o": "VISITAR"}, {"d": "JUEVES", "c": "50451", "n": "ROLLO 8", "a": "DEL ROLLO 8", "p": "NATALIA", "t": "643098445", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "50403", "n": "D`STAPA MADRID", "a": "SEGOVIA 8", "p": "JIMMY", "t": "660659061", "o": ""}, {"d": "JUEVES", "c": "50535", "n": "REST ASTOR", "a": "GOMEZ DE MORA 1", "p": "SALVA -RENATO", "t": "910390005", "o": "HACEN PERDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "050765", "n": "ALIMENTACION", "a": "CUCHILLEROS 14", "p": "ANGELA", "t": "655430114", "o": ""}, {"d": "JUEVES", "c": "50693", "n": "RAYUA mahou", "a": "TINTOREROS 4", "p": "MIGUEL ANGEL", "t": "915224801", "o": ""}, {"d": "JUEVES", "c": "50455", "n": "EL MADROÑO RTE TABER.", "a": "LATONEROS 10", "p": "JOSE", "t": "913669713", "o": ""}, {"d": "JUEVES", "c": "50225", "n": "BOTIN REST.", "a": "CUCHILLEROS 17", "p": "EDUARDO", "t": "639060524", "o": ""}, {"d": "JUEVES", "c": "50223", "n": "TABE. LA DANIELA", "a": "CUCHILLEROS 9", "p": "ISABEL", "t": "913662018", "o": ""}, {"d": "JUEVES", "c": "50222", "n": "CAFEE KE", "a": "CUCHILLEROS 3", "p": "ZUKY", "t": "609200534", "o": ""}, {"d": "JUEVES", "c": "50219", "n": "CUEVAS LUIS CANDELAS", "a": "CUCHILLEROS 1", "p": "JUAN", "t": "913665428", "o": ""}, {"d": "JUEVES", "c": "50462", "n": "CHAMPION MESON", "a": "CAVA SAN MIGUEL 17", "p": "MIGUEL", "t": "656955574", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "50396", "n": "RINCON DEL CAVA", "a": "CAVA SAN MIGUEL 17", "p": "REINIER", "t": "671663510", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "050766", "n": "CASA FRAILE", "a": "CUCHILKLEROS 2", "p": "DAVID", "t": "685984595", "o": ""}, {"d": "JUEVES", "c": "50110", "n": "EL CALAMAR", "a": "PZA CONDE BARAJAS 2", "p": "JESUS", "t": "676552645", "o": "HACE PEDIDO POR CHOCO"}, {"d": "JUEVES", "c": "50345", "n": "COCINA EMMA", "a": "PZA SAN MIGUEL 4", "p": "AGUS", "t": "913546013", "o": ""}, {"d": "JUEVES", "c": "50666", "n": "LA REVOLCONA", "a": "CAVA SAN MIGUEL 7", "p": "MIMA", "t": "666035763", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "120343", "n": "LOTUS WOK ODIN REST", "a": "ZARAGOZA 9", "p": "LI", "t": "688021700", "o": ""}, {"d": "JUEVES", "c": "120315", "n": "CHIQUITA BAR", "a": "POSTAS 15", "p": "DAVID", "t": "676702860", "o": ""}, {"d": "JUEVES", "c": "120281", "n": "SOL MAYOR lata", "a": "POSTAS 5", "p": "PEPE", "t": "915217218", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "120304", "n": "TABER.MALASPINA", "a": "CADIZ 9", "p": "JAVIER", "t": "632358247", "o": ""}, {"d": "JUEVES", "c": "120389", "n": "AGLIO E OLEO", "a": "ESPOZ Y MINA 5", "p": "XU", "t": "669991735", "o": "MISMO DUEÑO"}, {"d": "JUEVES", "c": "120410", "n": "ESPAÑA CAÑI", "a": "PZA DEL ANGEL 14", "p": "XU", "t": "669991735", "o": "MISMO DUEÑO"}, {"d": "JUEVES", "c": "120311", "n": "LAS BRAVAS PSJ MATHEU", "a": "PSJ MATHEU 5", "p": "DANI", "t": "682057770", "o": ""}, {"d": "JUEVES", "c": "120310", "n": "LAS BRAVAS ALVAREZ GATO", "a": "ALVAREZ GATO 3", "p": "JULIO", "t": "675068924", "o": ""}, {"d": "JUEVES", "c": "130033", "n": "LA LONJA DEL MAR", "a": "Plz Oriente 6", "p": "Poly", "t": "", "o": "POR WHATSAPP"}, {"d": "JUEVES", "c": "120483", "n": "EL FONTAN TABERNA", "a": "DE LA CRUZ 6", "p": "GRISEL", "t": "691627513", "o": ""}, {"d": "JUEVES", "c": "120549", "n": "EL ARCO TABERNA", "a": "HUERTAS 7", "p": "DELIA", "t": "638314449", "o": ""}, {"d": "JUEVES", "c": "120505", "n": "EL QUE FALTABA", "a": "PZA DEL ANGEL8", "p": "HUGO", "t": "678434459", "o": ""}, {"d": "JUEVES", "c": "120512", "n": "IMPERFECTO", "a": "PZA MATUTE 2", "p": "LENIN", "t": "680904436", "o": ""}, {"d": "JUEVES", "c": "50657", "n": "LA VACUNA", "a": "TINTOREROS 4", "p": "MOHSEN", "t": "696117730", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "120333", "n": "CALUANA", "a": "BOLSA 12", "p": "DANIEL", "t": "611507307", "o": "PEDIDO POR WHATSAPP"}, {"d": "JUEVES", "c": "120335", "n": "SALA SAMSARA doble", "a": "DE LA CRUZ 7", "p": "JUAN CARLOS", "t": "683436304", "o": "POR WHATSAPP PEPSI PEDIDOS"}, {"d": "JUEVES", "c": "120329", "n": "LYNCH", "a": "BARCELONA 12", "p": "", "t": "689384787", "o": "PEDIDO POR WHATSAPP"}, {"d": "VIERNES", "c": "120288", "n": "TABE. LA CARMELA", "a": "VICTORIA 4", "p": "CORNELIU", "t": "667000515", "o": ""}, {"d": "VIERNES", "c": "120359", "n": "TEAPOTS CAFÉ", "a": "POSTAS 26", "p": "IÑAKI", "t": "617102773", "o": ""}, {"d": "VIERNES", "c": "120280", "n": "PICCOLINO DE LA FARFALLA", "a": "HUERTAS 6", "p": "SONIA", "t": "913694391", "o": ""}, {"d": "VIERNES", "c": "140068", "n": "CRIOLLA ASADOR ARGENTINO", "a": "LOPE DE VEGA 20", "p": "DIEGO", "t": "674588996", "o": ""}, {"d": "VIERNES", "c": "50137", "n": "LA ESQUINA DE SAN MIGUEL", "a": "PZA SAN MIGUEL 10", "p": "RUBEN", "t": "659673034", "o": ""}, {"d": "VIERNES", "c": "120292", "n": "PARRILLA LA ADRIANA", "a": "CORREO 2", "p": "CECI", "t": "647534008", "o": ""}, {"d": "VIERNES", "c": "120302", "n": "SERAFINA BAR", "a": "ESPOZ Y MINA 4", "p": "SEBAS", "t": "699708691", "o": ""}, {"d": "VIERNES", "c": "120026", "n": "FERRETERIA", "a": "ATOCHA 57", "p": "LINDA", "t": "682812307", "o": ""}, {"d": "VIERNES", "c": "050522", "n": "AHUMADOS DOMINGUEZ", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "HUGO", "t": "699788331", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050671", "n": "ALCARAVEA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BIANCA", "t": "610652488", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050714", "n": "FUERZA LA HOJALDRERIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BELEN", "t": "681294852", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050634", "n": "LA HORA DEL VERMUT", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "", "t": "691032913", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050743", "n": "CARRITO SPRITZERIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "ANA", "t": "600992015", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050672", "n": "MADREAMIGA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "LUCIA", "t": "674797002", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050716", "n": "VINOS Y QUESOS", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BEA", "t": "628608315", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050515", "n": "QUESOBA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "ELENA", "t": "634291313", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050528", "n": "PRIMITAL STREET MEAT", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "FRANCIS", "t": "634977738", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050346", "n": "FELIXIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "INGRID", "t": "639273772", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050517", "n": "PAELLA POWER", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "EDU", "t": "623368863", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050539", "n": "TATAUN", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "SURYA", "t": "652246777", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050599", "n": "SEÑOR MARTIN", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "DAVID", "t": "625486449", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050518", "n": "PICOLISTO", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "PAULA", "t": "659894201", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050673", "n": "MAS GOURMET CHARCUTERIA", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "CURRO", "t": "637305598", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050419", "n": "PINKLETON & WINE", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "BEA", "t": "620050259", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050759", "n": "BAOLE", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "ZENNI", "t": "636818163", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050514", "n": "MOZZHEART", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "", "t": "685765936", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}, {"d": "VIERNES", "c": "050443", "n": "OSTRAS DANIEL SORLUT", "a": "PLAZA DE SAN MIGUEL (MERCADO)", "p": "TONY", "t": "626781571", "o": "PEDIDO POR WHATSAPP MERCASDO DE SAN MIGUEL"}];
+const DAYS=["LUNES","MARTES","MIERCOLES","JUEVES","VIERNES"];
+const LBL={TODOS:'Todos',LUNES:'Lunes',MARTES:'Martes',MIERCOLES:'Miércoles',JUEVES:'Jueves',VIERNES:'Viernes'};
+const TIPOS=['Incidencia','Reclamación','Cobro','Devolución','Pedido','Visita','Seguimiento','Otro'];
+const PALETTE=['#f5c400','#ff8a00','#8e1b3a','#1e6fd9','#9aa5b1','#2e9e5b','#d94f9b','#6b4fbb','#1d1d1d'];
+const SEED_FAM=[{id:'f1',c:'TON',n:'Tónica',col:'#f5c400'},{id:'f2',c:'CIT',n:'Cítricos',col:'#ff8a00'},{id:'f3',c:'TDV',n:'Tinto de verano',col:'#8e1b3a'},{id:'f4',c:'BLU',n:'Blue',col:'#1e6fd9'},{id:'f5',c:'CAS',n:'Casera 500 ml',col:'#9aa5b1'}];
+const SEED_PROD=[{id:'p1',f:'f1',n:'Tónica'},{id:'p2',f:'f2',n:'Cítricos'},{id:'p3',f:'f3',n:'Tinto de verano'},{id:'p4',f:'f4',n:'Blue'},{id:'p5',f:'f5',n:'Casera 500 ml'}];
+
+const P={
+ phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>',
+ chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+ pin:'<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ minus:'<path d="M5 12h14"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+ route:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h5"/>',
+ search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',
+ tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',
+ alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.01"/>',
+ sliders:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+ back:'<path d="M15 5l-7 7 7 7"/>',
+ edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+ note:'<path d="M6 4h12v16H6zM9 9h6M9 13h6"/>',
+ undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>',
+ cash:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+ store:'<path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v11H4z"/><path d="M9 20v-6h6v6"/>',
+ chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+ cloud:'<path d="M7 18a5 5 0 0 1-.9-9.9A6 6 0 0 1 18 9a4 4 0 0 1 0 9z"/>',
+ upload:'<path d="M12 16V4M7 9l5-5 5 5M5 20h14"/>',
+ download:'<path d="M12 4v12M7 11l5 5 5-5M5 20h14"/>'
+};
+const famOf=pid=>{const p=S.prod.find(x=>x.id===pid);const f=p&&S.fam.find(x=>x.id===p.f);return f?f.col:'#8ea2bd'};
+const ic=(n,s=18)=>`<svg class="i" width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true">${P[n]}</svg>`;
+
+const norm=s=>String(s||'').toUpperCase().replace(/\s+/g,' ').trim();
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=f=>f?new Date(f+'T12:00').toLocaleDateString('es-ES',{day:'numeric',month:'short'}):'';
+const defDay=()=>[null,'LUNES','MARTES','MIERCOLES','JUEVES','VIERNES',null][new Date().getDay()]||'LUNES';
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const waNum=t=>/^\d{9}$/.test(t)?'34'+t:t;
+const mapUrl=c=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.a+' Madrid');
+
+const CLIENTS=[];
+function seedCli(){
+  const out=[],IDX={};
+  DATA.forEach(r=>{
+    const k=norm(r.c)+'|'+norm(r.n)+'|'+norm(r.a);
+    if(!(k in IDX)){IDX[k]=out.length;out.push({k,c:r.c,n:r.n,a:r.a,p:r.p,t:r.t,o:[],days:[]})}
+    const cl=out[IDX[k]];
+    if(r.o&&!cl.o.includes(r.o))cl.o.push(r.o);
+    if(!cl.days.includes(r.d))cl.days.push(r.d);
+  });
+  return out;
+}
+function syncCli(){CLIENTS.length=0;S.cli.forEach(c=>CLIENTS.push(c))}
+
+let S={reg:{},notes:{},st:{}},view='ruta',prev='ruta',day=defDay(),q='',cur=0,offP='',curTipo='Incidencia',curDesc='',curFecha=today();
+function load(){
+  try{Object.assign(S,JSON.parse(localStorage.getItem('pv1')||'{}'))}catch(e){}
+  S.reg=S.reg||{};S.notes=S.notes||{};S.st=S.st||{};S.fb=S.fb||{url:''};S.qty=S.qty||{};S.obj=S.obj||{};S.om=S.om||{};S.hist=S.hist||{};S.real=S.real||{};
+  if(!S.fam){S.fam=SEED_FAM.map(x=>({...x}));S.prod=SEED_PROD.map(x=>({...x}));save()}
+  S.prod=S.prod||[];
+  S.fam.forEach((f,i)=>{if(!f.col)f.col=PALETTE[i%PALETTE.length]});
+  if(!S.migV2){
+    const T=[{n:'Estrella Galicia',ou:'cajas',ov:1231},{n:'Tónica',ou:'cajas',ov:114},{n:'Blue',ou:'cajas',ov:59},
+      {n:'Cítricos',ou:'cajas',ov:74},{n:'Tinto de verano',ou:'cajas',ov:44},{n:'Casera',ou:'cajas',ov:31},
+      {n:'Líquidos',ou:'€',ov:5369},{n:'Not Food',ou:'€',ov:850},{n:'Marcas propias',ou:'uds',ov:20},
+      {n:'Vinos y licores',ou:'€',ov:900},{n:'Alimentación',ou:'€',ov:2800}];
+    T.forEach(t=>{
+      let f=S.fam.find(x=>norm(x.n).startsWith(norm(t.n)));
+      if(!f){f={id:'f'+uid(),c:t.n.slice(0,3).toUpperCase(),n:t.n,col:PALETTE[S.fam.length%PALETTE.length]};S.fam.push(f)}
+      f.ou=t.ou;f.ov=t.ov;
+    });
+    S.migV2=true;save();
+  }
+  if(!S.cli){S.cli=seedCli();save()}
+  syncCli();
+}
+function saveLocal(){try{localStorage.setItem('pv1',JSON.stringify(S))}catch(e){}}
+function save(){saveLocal();schedulePush()}
+let pushT=null;
+const fbUrl=()=>((S.fb&&S.fb.url)||'').trim().replace(/\/+$/,'');
+const arr=v=>Array.isArray(v)?v:Object.values(v||{});
+function schedulePush(){if(!fbUrl())return;clearTimeout(pushT);pushT=setTimeout(()=>fbPush(false),1500)}
+async function fbPush(manual){
+  const url=fbUrl();if(!url)return;
+  try{
+    const r=await fetch(url+'/postventa_rutas.json',{method:'PUT',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({cli:S.cli,fam:S.fam,prod:S.prod,reg:S.reg,st:S.st,qty:S.qty,obj:S.obj,om:S.om,hist:S.hist,real:S.real,notes:S.notes,at:Date.now()})});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    S.fbAt=Date.now();S.fbErr=false;saveLocal();
+    if(manual){toast('Datos subidos a Firebase','check');render()}
+  }catch(e){S.fbErr=true;S.fbMsg=e.message;saveLocal();if(manual){toast('No se pudo subir a Firebase','alert');render()}}
+}
+async function fbPull(){
+  if(!fbUrl())return toast('Configura primero la URL','alert');
+  if(!confirm('Esto sustituirá los datos de este dispositivo por los de Firebase. ¿Continuar?'))return;
+  try{
+    const r=await fetch(fbUrl()+'/postventa_rutas.json');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    if(!d)return toast('No hay datos guardados en Firebase','alert');
+    S.cli=arr(d.cli).map(c=>({...c,o:arr(c.o),days:arr(c.days)}));
+    S.fam=arr(d.fam);S.prod=arr(d.prod);
+    S.reg=Object.fromEntries(Object.entries(d.reg||{}).map(([k,v])=>[k,arr(v)]));
+    S.st=d.st||{};S.qty=d.qty||{};S.obj=d.obj||{};S.om=d.om||{};S.hist=d.hist||{};S.real=d.real||{};S.notes=d.notes||{};S.fbAt=Date.now();S.fbErr=false;
+    syncCli();saveLocal();toast('Datos descargados de Firebase','check');render();
+  }catch(e){S.fbErr=true;saveLocal();toast('No se pudo conectar con Firebase','alert');render()}
+}
+function fbSave(){
+  const u=document.getElementById('fb_u').value.trim().replace(/\/+$/,'');
+  if(u&&!/^https:\/\/[a-z0-9-]+(\.[a-z0-9-]+)*\.(firebasedatabase\.app|firebaseio\.com)$/i.test(u))
+    return toast('La URL debe tener el formato https://…firebasedatabase.app','alert');
+  S.fb={url:u};S.fbErr=false;saveLocal();
+  toast(u?'Conexión guardada':'Conexión vacía');
+  if(u)fbPush(true);else render();
+}
+function fbDisconnect(){S.fb={url:''};S.fbErr=false;saveLocal();toast('Conexión eliminada','x');render()}
+function fbCard(){
+  const url=fbUrl();
+  const st=!url?'Sin conectar':S.fbErr?'Error de conexión'+(S.fbMsg?' ('+S.fbMsg+')':''):S.fbAt?'Sincronizado '+new Date(S.fbAt).toLocaleString('es-ES',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'Conectado, sin sincronizar';
+  return `<section class="form"><div class="brand" style="margin-bottom:6px"><strong style="font-family:'Barlow Condensed',sans-serif;font-size:20px;display:flex;gap:8px;align-items:center">${ic('cloud',20)}Firebase</strong><small class="${S.fbErr?'bad-t':''}" style="color:${S.fbErr?'var(--bad)':'var(--mut)'}">${esc(st)}</small></div>
+    <label class="lb">URL de la base de datos (Realtime Database)</label>
+    <input id="fb_u" value="${esc(url)}" placeholder="https://tu-proyecto-default-rtdb.europe-west1.firebasedatabase.app">
+    <button class="bb primary" style="margin-top:10px" onclick="fbSave()">${ic('check',20)}Guardar conexión</button>
+    ${url?`<div class="row2" style="margin-top:8px"><button class="bb" onclick="fbPush(true)">${ic('upload',18)}Subir ahora</button><button class="bb" onclick="fbPull()">${ic('download',18)}Descargar</button></div>
+    <button class="bb" style="margin-top:8px;width:100%" onclick="fbDisconnect()">${ic('x',18)}Desconectar</button>`:''}
+    <p class="cap">Con conexión activa, los cambios se suben solos unos segundos después de editar, en la ruta <b>postventa_rutas</b>. Revisa las reglas de seguridad de tu base de datos: si son abiertas, cualquiera con la URL puede leer los teléfonos de los clientes.</p></section>`;
+}
+
+const openN=i=>(S.reg[CLIENTS[i].k]||[]).filter(x=>x.e==='abierta').length;
+const qtyOf=(k,pid)=>{const q=(S.qty[k]||{})[pid];return q===undefined?null:q};
+const stOf=(k,pid)=>{const q=qtyOf(k,pid);if(q!==null)return q>0?'si':'no';return (S.st[k]||{})[pid]||''};
+const full=i=>S.prod.length&&S.prod.every(p=>stOf(CLIENTS[i].k,p.id)==='si');
+const allRecs=()=>CLIENTS.flatMap((c,i)=>(S.reg[c.k]||[]).map(x=>({i,c,x})));
+const findRec=id=>{for(const k in S.reg){const x=S.reg[k].find(y=>y.id===id);if(x)return{k,x}}};
+
+function toast(m,icon='check'){const t=document.getElementById('toast');t.innerHTML=ic(icon,16)+esc(m);t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),1900)}
+function go(v){view=v;render();window.scrollTo(0,0)}
+function openC(i){if(view!=='ficha')prev=view;cur=i;go('ficha')}
+const days=()=>`<div class="seg" role="tablist">${['TODOS',...DAYS].map(d=>`<button class="${day===d?'on':''}" onclick="day='${d}';render()">${LBL[d]}</button>`).join('')}</div>`;
+
+function render(){
+  const tabs=[['ruta','route','Ruta'],['buscar','search','Clientes'],['ofertar','tag','Ofertar'],['obj','chart','Objetivos'],['pend','alert','Pendientes'],['admin','sliders','Admin']];
+  const act=(view==='ficha'||view==='editar')?prev:view;
+  document.getElementById('nav').innerHTML=tabs.map(([v,i,l])=>`<button class="${act===v?'on':''}" onclick="go('${v}')">${ic(i,22)}<span>${l}</span></button>`).join('');
+  const titles={ruta:'Ruta de hoy',buscar:'Clientes',ofertar:'Ofertar productos',obj:'Objetivos',pend:'Pendientes',admin:'Administración',ficha:'',editar:'Cliente'};
+  document.getElementById('top').innerHTML=`<div class="brand"><h1>${titles[view]}</h1><small>${fmt(today())}</small></div>${['ruta','ofertar'].includes(view)?days():''}`;
+  document.getElementById('app').innerHTML={ruta,buscar,ofertar,obj,pend,admin,ficha,editar}[view]();
+}
+
+function chipsOf(k){
+  return S.prod.map(p=>{
+    const q=qtyOf(k,p.id), col=famOf(p.id);
+    const st=q===null?'none':q>0?'yes':'no', sym=q===null?'○':q>0?'✓':'✕';
+    return `<span class="pc ${st}" style="--c:${col}" title="${esc(p.n)}"><b>${sym}</b>${esc(p.n)}${q>0?' · '+q:''}</span>`;
+  }).join('');
+}
+function card(i){
+  const c=CLIENTS[i],n=openN(i),states=S.prod.map(p=>qtyOf(c.k,p.id));
+  const tot=S.prod.length, yes=states.filter(q=>q>0).length, no=states.filter(q=>q===0).length;
+  const units=states.reduce((s,q)=>s+(q||0),0);
+  const tone=n?'bad':(tot&&yes===tot?'ok':(no?'warn':''));
+  return `<article class="card ${tone}" onclick="openC(${i})">
+    <div class="cb"><h2>${esc(c.n)}</h2><p>${esc(c.a)}</p>
+    <div class="meta">${c.days.map(d=>`<span class="tag">${LBL[d]||d}</span>`).join('')}${tot?`<span class="tag">${ic('store',12)}${yes}/${tot}</span>`:''}${units?`<span class="tag">${units} ud</span>`:''}${n?`<span class="tag bad">${ic('alert',12)}${n} abierta${n>1?'s':''}</span>`:''}</div>
+    ${tot?`<div class="pcs">${chipsOf(c.k)}</div>`:''}</div>
+    <div class="acts-r">
+      ${c.t?`<a class="ib" href="tel:${esc(c.t)}" onclick="event.stopPropagation()" aria-label="Llamar">${ic('phone')}</a>
+      <a class="ib" href="https://wa.me/${esc(waNum(c.t))}" target="_blank" onclick="event.stopPropagation()" aria-label="WhatsApp">${ic('chat')}</a>`:''}
+      <a class="ib" href="${mapUrl(c)}" target="_blank" onclick="event.stopPropagation()" aria-label="Abrir mapa">${ic('pin')}</a>
+    </div></article>`;
+}
+
+function rutaRing(idx){
+  const comp=idx.filter(i=>full(i)).length, pct=idx.length?Math.round(comp/idx.length*100):0;
+  const r=34,c=2*Math.PI*r,off=c*(1-pct/100);
+  return `<div class="ruta-hero">
+    <svg class="ring" viewBox="0 0 80 80" width="96" height="96" aria-hidden="true">
+      <defs><linearGradient id="gradRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb547"/><stop offset=".5" stop-color="#ff5f8a"/><stop offset="1" stop-color="#7c5cff"/></linearGradient></defs>
+      <circle cx="40" cy="40" r="${r}" class="rt"/>
+      <circle cx="40" cy="40" r="${r}" class="rv" stroke-dasharray="${c}" style="--c:${c};--off:${off}"/>
+      <text x="40" y="46" text-anchor="middle" class="rtx">${pct}%</text>
+    </svg>
+    <div><h2>${pct>=100?'¡Ruta completa! 🎉':pct>=50?'Vas muy bien 💪':'A por la ruta 🚚'}</h2>
+    <p class="mut" style="margin:4px 0 0">${comp} de ${idx.length} clientes con todos los productos</p></div></div>`;
+}
+function ruta(){
+  const idx=CLIENTS.map((c,i)=>i).filter(i=>day==='TODOS'||CLIENTS[i].days.includes(day));
+  const open=allRecs().filter(o=>o.x.e==='abierta').length;
+  const comp=idx.filter(i=>full(i)).length;
+  return `${rutaRing(idx)}<div class="kpis"><div><b>${idx.length}</b><span>clientes</span></div>
+    <div class="ok"><b>${comp}</b><span>completos</span></div>
+    <div class="${open?'bad':'ok'}"><b>${open}</b><span>abiertos</span></div></div>
+    ${idx.map(card).join('')||`<div class="empty">${ic('route',34)}<p>No hay clientes para este día.</p></div>`}
+    <p class="cap">Los datos se guardan solo en este dispositivo.</p>`;
+}
+
+function lst(){
+  const t=norm(q);
+  return CLIENTS.map((c,i)=>i)
+    .filter(i=>{const c=CLIENTS[i];return !t||norm([c.n,c.a,c.p,c.t,c.c].join(' ')).includes(t)})
+    .sort((a,b)=>CLIENTS[a].n.localeCompare(CLIENTS[b].n,'es'))
+    .map(card).join('')||`<div class="empty">${ic('search',34)}<p>Ningún cliente coincide con la búsqueda.</p></div>`;
+}
+function buscar(){
+  return `<button class="bb primary" style="margin-bottom:12px" onclick="newC()">${ic('plus',20)}Nuevo cliente</button><label class="search">${ic('search')}<input type="search" placeholder="Nombre, calle, contacto o teléfono" value="${esc(q)}"
+  oninput="q=this.value;document.getElementById('lst').innerHTML=lst()"></label><div id="lst" style="margin-top:14px">${lst()}</div>`;
+}
+
+function ofertar(){
+  if(!S.prod.length)return `<div class="empty">${ic('plus',34)}<p>Añade productos en Admin para empezar.</p></div>`;
+  if(!S.prod.find(p=>p.id===offP))offP=S.prod[0].id;
+  const pr=S.prod.find(p=>p.id===offP),pn=pr.n;
+  const idx=CLIENTS.map((c,i)=>i)
+    .filter(i=>(day==='TODOS'||CLIENTS[i].days.includes(day))&&stOf(CLIENTS[i].k,offP)!=='si')
+    .sort((a,b)=>(stOf(CLIENTS[a].k,offP)==='no'?0:1)-(stOf(CLIENTS[b].k,offP)==='no'?0:1));
+  return `<div class="seg" style="margin-bottom:12px">${S.prod.map(p=>`<button class="${p.id===offP?'on':''}" onclick="offP='${p.id}';render()"><i class="sw" style="background:${famOf(p.id)}"></i>${esc(p.n)}</button>`).join('')}</div>
+  <div class="kpis" style="grid-template-columns:1fr"><div class="bad" style="text-align:left;display:flex;align-items:baseline;gap:10px"><b style="margin:0">${idx.length}</b><span>establecimientos sin «${esc(pn)}» confirmado</span></div></div>
+  ${idx.map(i=>{const c=CLIENTS[i],s=stOf(c.k,offP);
+    const msg=encodeURIComponent(`Hola${c.p?' '+c.p.split(/[ ,\/]/)[0]:''}, te escribo sobre ${pn}. ¿Te interesa que lo incluya en el próximo reparto?`);
+    return `<article class="card ${s==='no'?'bad':'warn'}" onclick="openC(${i})"><div class="cb"><h2>${esc(c.n)}</h2><p>${esc(c.a)}</p>
+    <div class="meta"><span class="tag ${s==='no'?'bad':''}">${s==='no'?'Ofertar':'Sin revisar'}</span>${c.days.map(d=>`<span class="tag">${LBL[d]}</span>`).join('')}</div></div>
+    <div class="acts-r">${c.t?`<a class="ib" href="https://wa.me/${esc(waNum(c.t))}?text=${msg}" target="_blank" onclick="event.stopPropagation()" aria-label="Ofrecer por WhatsApp">${ic('chat')}</a>`:''}</div></article>`}).join('')||`<div class="empty">${ic('check',34)}<p>Todos los establecimientos del día lo tienen.</p></div>`}`;
+}
+
+function pend(){
+  const items=allRecs().filter(o=>o.x.e==='abierta').sort((a,b)=>a.x.f<b.x.f?-1:1);
+  return (items.map(({i,c,x})=>`<article class="hist" onclick="openC(${i})" style="cursor:pointer">
+    <div class="top"><h2 style="flex:1">${esc(c.n)}</h2><span class="tag bad">${esc(x.tipo)}</span></div>
+    <p class="mut" style="margin:0 0 8px">${fmt(x.f)} · ${esc(x.d)}</p>
+    <div class="actions"><button onclick="event.stopPropagation();resolveRec('${x.id}')" aria-label="Marcar resuelta">${ic('check',18)}</button></div></article>`).join('')
+    ||`<div class="empty">${ic('check',34)}<p>Nada pendiente. Todo resuelto.</p></div>`);
+}
+function resolveRec(id){const r=findRec(id);if(r){r.x.e='resuelta';save();toast('Registro marcado como resuelto');render()}}
+
+function resetCard(){
+  return `<section class="form"><strong style="font-family:'Barlow Condensed',sans-serif;font-size:20px">Empezar limpio</strong>
+    <p class="cap">Pone a cero los estados y unidades de todos los clientes, los objetivos mensuales y los meses cerrados. Tus clientes y tu catálogo se mantienen.</p>
+    <button class="bb" onclick="resetCounts()">${ic('undo',18)}Poner todo a cero</button>
+    <p class="cap">Borra también todos los registros postventa (incidencias, cobros, pedidos…).</p>
+    <button class="bb" onclick="resetRecs()">${ic('trash',18)}Borrar registros postventa</button></section>`;
+}
+function resetCounts(){
+  if(!confirm('¿Poner a cero todos los contadores, objetivos mensuales y meses cerrados? Si tienes Firebase conectado, también se actualizará allí.'))return;
+  S.st={};S.qty={};S.hist={};S.real={};S.om={};S.obj={};save();toast('Todo a cero','check');render();
+}
+function resetRecs(){
+  if(!confirm('¿Borrar todos los registros postventa? Esta acción no se puede deshacer.'))return;
+  S.reg={};save();toast('Registros borrados','trash');render();
+}
+function admin(){
+  return `${fbCard()}${resetCard()}${S.fam.map(f=>`<section class="fam-card">
+    <div class="head"><i class="sw big" style="background:${f.col}"></i><strong>${esc(f.n)} <span class="mut" style="font-size:14px">${esc(f.c)}</span></strong>
+      <input type="color" value="${f.col}" onchange="setFamCol('${f.id}',this.value)" aria-label="Color de la familia" style="width:44px;height:38px;padding:2px;flex:none;border-radius:10px">
+      <button class="mini" onclick="renFam('${f.id}')" aria-label="Renombrar familia">${ic('edit',16)}</button>
+      <button class="mini del" onclick="delFam('${f.id}')" aria-label="Eliminar familia">${ic('trash',16)}</button></div>
+    ${S.prod.filter(p=>p.f===f.id).map(p=>`<div class="prow"><span>${esc(p.n)}</span>
+      <span class="tg"><button onclick="renProd('${p.id}')" aria-label="Renombrar producto">${ic('edit',16)}</button>
+      <button onclick="delProd('${p.id}')" aria-label="Eliminar producto">${ic('trash',16)}</button></span></div>`).join('')}
+    <div class="add"><input id="np${f.id}" placeholder="Nuevo producto en ${esc(f.n)}" onkeydown="if(event.key==='Enter')addProd('${f.id}')">
+      <button onclick="addProd('${f.id}')" aria-label="Añadir producto">${ic('plus',20)}</button></div></section>`).join('')}
+  <section class="form"><strong style="font-family:'Barlow Condensed',sans-serif;font-size:20px">Importar catálogo</strong>
+    <p class="cap" style="margin:4px 0 8px">Una línea por producto con el formato <b>Familia; Producto</b>. Si la familia no existe, se crea.</p>
+    <textarea id="imp" rows="5" placeholder="Tónica; Schweppes&#10;Cítricos; Limón&#10;Cítricos; Naranja"></textarea>
+    <button class="bb" style="margin-top:10px;width:100%" onclick="importCat()">${ic('upload',18)}Importar</button></section>
+  <section class="form"><strong style="font-family:'Barlow Condensed',sans-serif;font-size:20px">Nueva familia de productos</strong>
+    <div class="row2"><div><label class="lb">Código</label><input id="fcd" placeholder="TON" maxlength="6"></div>
+    <div><label class="lb">Nombre</label><input id="fnm" placeholder="Nombre de la familia"></div></div>
+    <div style="margin-top:10px"><label class="lb">Color</label><input type="color" id="fcol" value="${PALETTE[S.fam.length%PALETTE.length]}" style="height:46px"></div>
+    <button class="bb primary" style="margin-top:12px" onclick="addFam()">${ic('plus',20)}Añadir familia</button></section>`;
+}
+function addFam(){
+  const c=document.getElementById('fcd').value.trim().toUpperCase(),n=document.getElementById('fnm').value.trim();
+  if(!n)return toast('Escribe el nombre de la familia','alert');
+  S.fam.push({id:'f'+uid(),c,n,col:document.getElementById('fcol').value});save();toast('Familia añadida');render();
+}
+function renFam(id){const f=S.fam.find(x=>x.id===id);const n=prompt('Nuevo nombre',f.n);if(n&&n.trim()){f.n=n.trim();save();toast('Nombre actualizado','edit');render()}}
+function setFamCol(id,v){const f=S.fam.find(x=>x.id===id);f.col=v;save();toast('Color actualizado','check');render()}
+function delFam(id){if(!confirm('¿Eliminar la familia y sus productos?'))return;S.fam=S.fam.filter(f=>f.id!==id);S.prod=S.prod.filter(p=>p.f!==id);save();toast('Familia eliminada','trash');render()}
+function addProd(fid){const el=document.getElementById('np'+fid),n=el.value.trim();if(!n)return;S.prod.push({id:'p'+uid(),f:fid,n});save();toast('Producto añadido');render()}
+function renProd(id){const p=S.prod.find(x=>x.id===id);const n=prompt('Nuevo nombre',p.n);if(n&&n.trim()){p.n=n.trim();save();toast('Nombre actualizado','edit');render()}}
+function delProd(id){if(!confirm('¿Eliminar este producto?'))return;S.prod=S.prod.filter(p=>p.id!==id);save();toast('Producto eliminado','trash');render()}
+
+function prodRows(k){
+  return S.fam.map(f=>{
+    const ps=S.prod.filter(p=>p.f===f.id);
+    if(!ps.length)return '';
+    return `<div class="fam" style="color:${f.col}"><i class="sw" style="background:${f.col}"></i>${esc(f.n)}</div>`+ps.map(p=>{
+      const q=qtyOf(k,p.id), v=q===null?0:q;
+      const txt=q===null?'Sin revisar':q===0?'No lo tiene · ofertar':'Lleva '+q+' ud';
+      return `<div class="prow" style="box-shadow:inset 3px 0 0 ${f.col};padding-left:10px">
+        <span style="flex:1;min-width:0">${esc(p.n)}<small class="mut" style="display:block;font-size:12px">${txt}</small></span>
+        <div class="stepper">
+          <button onclick="setQty('${p.id}',${Math.max(0,v-1)})" aria-label="Quitar una unidad">${ic('minus',16)}</button>
+          <input type="number" min="0" inputmode="numeric" value="${q===null?'':q}" placeholder="—" aria-label="Unidades de ${esc(p.n)}"
+            onchange="setQty('${p.id}',this.value===''?null:Math.max(0,parseInt(this.value)||0))">
+          <button onclick="setQty('${p.id}',${v+1})" aria-label="Añadir una unidad">${ic('plus',16)}</button>
+        </div></div>`;
+    }).join('');
+  }).join('');
+}
+function setQty(pid,v){
+  const k=CLIENTS[cur].k;
+  S.qty[k]=S.qty[k]||{};
+  if(v===null)delete S.qty[k][pid];else S.qty[k][pid]=v;
+  save();render();
+}
+
+let mo=today().slice(0,7);
+const curMo=()=>today().slice(0,7);
+const moName=k=>{const [y,m]=k.split('-');return new Date(+y,+m-1,1).toLocaleDateString('es-ES',{month:'long',year:'numeric'})};
+const shiftMo=(k,n)=>{const [y,m]=k.split('-').map(Number);const d=new Date(y,m-1+n,1);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')};
+const fmtN=n=>Number(n||0).toLocaleString('es-ES');
+const tgt=(f,m)=>{const v=(S.om[m]||{})[f.id];return v!==undefined?v:(f.ov??null)};
+const prodTotal=pid=>CLIENTS.reduce((t,c)=>t+((S.qty[c.k]||{})[pid]||0),0);
+const realOf=(f,m)=>{
+  if(S.hist[m])return S.hist[m].act[f.id]||0;
+  if(f.ou==='€')return (S.real[m]||{})[f.id]||0;
+  return S.prod.filter(p=>p.f===f.id).reduce((s,p)=>s+prodTotal(p.id),0);
+};
+function setTgt(fid,v){
+  const n=parseFloat(v);
+  S.om[mo]=S.om[mo]||{};
+  if(isNaN(n))delete S.om[mo][fid];else S.om[mo][fid]=n;
+  save();toast('Objetivo de '+moName(mo)+' guardado','check');render();
+}
+function setReal(fid,v){S.real[mo]=S.real[mo]||{};S.real[mo][fid]=parseFloat(v)||0;save();render()}
+function closeMo(){
+  if(S.hist[mo])return toast('Este mes ya está cerrado','alert');
+  if(!confirm('¿Cerrar '+moName(mo)+'? Se guarda el resultado y se ponen a cero los contadores de unidades de todos los clientes.'))return;
+  const act={};S.fam.forEach(f=>act[f.id]=realOf(f,mo));
+  S.hist[mo]={act};
+  CLIENTS.forEach(c=>{delete S.qty[c.k]});
+  mo=shiftMo(mo,1);save();toast('Mes cerrado. Empieza '+moName(mo),'check');render();
+}
+function obj(){
+  if(!S.fam.length)return `<div class="empty">${ic('plus',34)}<p>Añade familias en Admin.</p></div>`;
+  const closed=!!S.hist[mo];
+  const nav=`<div class="mesnav"><button class="mini" onclick="mo=shiftMo(mo,-1);render()" aria-label="Mes anterior">${ic('back',16)}</button>
+    <strong>${moName(mo)}</strong>
+    <button class="mini" onclick="mo=shiftMo(mo,1);render()" aria-label="Mes siguiente" style="transform:scaleX(-1)">${ic('back',16)}</button></div>
+    <p class="cap" style="margin:0 0 10px">${closed?'Mes cerrado · resultado guardado':'Mes abierto · los contadores son de este mes'}</p>`;
+  return nav+S.fam.map(f=>{
+    const t=tgt(f,mo), r=realOf(f,mo), U=f.ou||'uds', pct=t?Math.min(100,Math.round(r/t*100)):0;
+    const ps=S.prod.filter(p=>p.f===f.id);
+    return `<section class="form">
+      <div class="brand" style="margin-bottom:6px"><strong style="font-family:'Barlow Condensed',sans-serif;font-size:20px;display:flex;gap:8px;align-items:center;color:${f.col}"><i class="sw big" style="background:${f.col}"></i>${esc(f.n)}</strong><small class="${pct>=100?'win':'mut'}">${t?(pct>=100?'🏆 ':'')+pct+'%':'Sin objetivo'}</small></div>
+      <div class="bar"><i style="width:${pct}%;background:${f.col}"></i></div>
+      <div class="objbot"><span>${fmtN(r)} ${U}${t?' de '+fmtN(t)+' '+U:''}</span>
+        <label class="objin">Objetivo <input type="number" min="0" value="${t??''}" placeholder="—" onchange="setTgt('${f.id}',this.value)">${U}</label></div>
+      ${f.ou==='€'?`<div class="objbot" style="margin-top:8px"><span class="mut">Facturado este mes</span>
+        <label class="objin"><input type="number" min="0" value="${(S.real[mo]||{})[f.id]??''}" placeholder="0" ${closed?'disabled':''} onchange="setReal('${f.id}',this.value)">€</label></div>`:''}
+      ${ps.length?`<details style="margin-top:8px"><summary class="mut" style="cursor:pointer">${ps.length} producto${ps.length>1?'s':''}</summary>
+        ${ps.map(p=>`<div class="prow"><span>${esc(p.n)}</span><b>${fmtN(prodTotal(p.id))} ud</b></div>`).join('')}</details>`
+        :`<p class="mut" style="font-size:13px;margin:8px 0 0">Sin productos. Añádelos en Admin.</p>`}
+    </section>`;
+  }).join('')+(closed?'':`<button class="bb primary" style="margin-top:6px;width:100%" onclick="closeMo()">${ic('check',20)}Cerrar ${moName(mo)}</button>`);
+}
+
+function importCat(){
+  const lines=document.getElementById('imp').value.split('\n').map(l=>l.trim()).filter(Boolean);
+  if(!lines.length)return toast('Pega al menos una línea','alert');
+  let nf=0,np=0;
+  lines.forEach(l=>{
+    const parts=l.split(/[;|]/);
+    const fn=(parts[0]||'').trim(), prod=parts.slice(1).join(' ').trim();
+    if(!fn)return;
+    let f=S.fam.find(x=>norm(x.n)===norm(fn));
+    if(!f){f={id:'f'+uid(),c:fn.slice(0,3).toUpperCase(),n:fn,col:PALETTE[S.fam.length%PALETTE.length]};S.fam.push(f);nf++}
+    if(prod&&!S.prod.some(p=>p.f===f.id&&norm(p.n)===norm(prod))){S.prod.push({id:'p'+uid(),f:f.id,n:prod});np++}
+  });
+  save();toast(`${nf} familias y ${np} productos añadidos`,'check');render();
+}
+
+let ed=null;
+function newC(){ed=null;prev='buscar';go('editar')}
+function editC(){ed=cur;go('editar')}
+function editar(){
+  const c=ed===null?{n:'',c:'',a:'',p:'',t:'',o:[],days:[]}:CLIENTS[ed];
+  if(!c)return go('buscar');
+  return `<div class="brand" style="margin-bottom:0"><button class="bb ghost" onclick="go(ed===null?'buscar':'ficha')" aria-label="Volver">${ic('back',22)}</button><small>${ed===null?'Nuevo cliente':'Editar cliente'}</small></div>
+  <section class="form" style="margin-top:10px">
+    <label class="lb">Nombre del establecimiento</label><input id="e_n" value="${esc(c.n)}" placeholder="Ej. BAR LOS ARCOS">
+    <div class="row2"><div><label class="lb">Código</label><input id="e_c" value="${esc(c.c)}" placeholder="Ej. 120286"></div>
+    <div><label class="lb">Teléfono</label><input id="e_t" inputmode="tel" value="${esc(c.t)}"></div></div>
+    <label class="lb">Dirección</label><input id="e_a" value="${esc(c.a)}" placeholder="Calle y número">
+    <label class="lb">Persona de contacto</label><input id="e_p" value="${esc(c.p)}">
+    <label class="lb">Días de reparto</label>
+    <div class="seg" style="flex-wrap:wrap;overflow:visible" id="e_d">${DAYS.map(d=>`<button type="button" class="${c.days.includes(d)?'on':''}" data-d="${d}" onclick="this.classList.toggle('on')">${LBL[d]}</button>`).join('')}</div>
+    <label class="lb">Observaciones</label><textarea id="e_o" rows="2">${esc((c.o||[]).join(' · '))}</textarea>
+    <button class="bb primary" style="margin-top:14px" onclick="saveC()">${ic('check',20)}Guardar cliente</button>
+  </section>`;
+}
+function saveC(){
+  const v=id=>document.getElementById(id).value.trim();
+  const n=v('e_n');
+  if(!n)return toast('Escribe el nombre del establecimiento','alert');
+  const days=[...document.querySelectorAll('#e_d button.on')].map(b=>b.dataset.d);
+  if(!days.length)return toast('Elige al menos un día de reparto','alert');
+  const obs=v('e_o');
+  const data={n,c:v('e_c'),a:v('e_a'),p:v('e_p'),t:v('e_t').replace(/\s+/g,''),o:obs?[obs]:[],days};
+  if(ed===null){
+    S.cli.push({k:'N'+uid(),...data});
+    syncCli();cur=CLIENTS.length-1;save();toast('Cliente añadido');go('ficha');
+  }else{
+    Object.assign(CLIENTS[ed],data);save();syncCli();toast('Cliente actualizado');go('ficha');
+  }
+}
+function delC(){
+  const c=CLIENTS[cur];
+  if(!confirm(`¿Eliminar «${c.n}»? Se borran también sus registros y sus productos marcados.`))return;
+  S.cli=S.cli.filter(x=>x!==c);
+  delete S.reg[c.k];delete S.st[c.k];delete S.qty[c.k];delete S.notes[c.k];
+  save();syncCli();toast('Cliente eliminado','trash');go('ruta');
+}
+
+function ficha(){
+  const c=CLIENTS[cur];
+  if(!c)return go('ruta');
+  const recs=(S.reg[c.k]||[]).slice().sort((a,b)=>a.f<b.f?1:-1);
+  return `<div class="brand" style="margin-bottom:0"><button class="bb ghost" onclick="go(prev)" aria-label="Volver">${ic('back',22)}</button><small>${esc(c.c)}</small><span style="display:flex;gap:6px"><button class="bb ghost" onclick="editC()" aria-label="Editar cliente">${ic('edit',20)}</button><button class="bb ghost" onclick="delC()" aria-label="Eliminar cliente">${ic('trash',20)}</button></span></div>
+  <header class="hero" style="margin-top:6px"><h2>${esc(c.n)}</h2><p>${esc(c.a)}</p>
+  <p class="mut">${c.days.map(d=>LBL[d]).join(' · ')}${c.p?' · '+esc(c.p):''}</p></header>
+  <div class="big">${c.t?`<a class="bb" href="tel:${esc(c.t)}">${ic('phone',20)}Llamar</a><a class="bb" href="https://wa.me/${esc(waNum(c.t))}" target="_blank">${ic('chat',20)}WhatsApp</a>`:''}
+    <a class="bb" href="${mapUrl(c)}" target="_blank">${ic('pin',20)}Mapa</a></div>
+  ${c.o.length?`<div class="note">${ic('note',18)}<span>${c.o.map(esc).join('<br>')}</span></div>`:''}
+  ${S.prod.length?(()=>{const st=S.prod.map(p=>qtyOf(c.k,p.id));const y=st.filter(q=>q>0).length,nn=st.filter(q=>q===0).length,s0=st.filter(q=>q===null).length;
+    return `<div class="cover"><div class="cov-top"><span>${y} de ${S.prod.length} productos</span><span class="mut">${nn} por ofertar · ${s0} sin revisar</span></div><div class="pcs">${chipsOf(c.k)}</div></div>`;})():''}
+  <h3>Productos</h3>
+  ${S.prod.length?`<div class="plist">${prodRows(c.k)}</div>`:'<p class="mut">Sin productos en el catálogo.</p>'}
+  <h3>Registrar postventa</h3>
+  <div class="form">
+    <div class="seg" style="flex-wrap:wrap;overflow:visible">${TIPOS.map(t=>`<button class="${t===curTipo?'on':''}" onclick="curTipo='${t}';render()">${t}</button>`).join('')}</div>
+    <label class="lb">Fecha</label><input type="date" value="${curFecha}" onchange="curFecha=this.value">
+    <label class="lb">Qué ha pasado</label><textarea rows="3" placeholder="Describe la incidencia, el cobro o el pedido" oninput="curDesc=this.value">${esc(curDesc)}</textarea>
+    <button class="bb primary" style="margin-top:12px" onclick="addRec()">${ic('check',20)}Guardar registro</button>
+  </div>
+  <h3>Historial</h3>
+  ${recs.map(x=>`<article class="hist"><div class="top"><span class="tag ${x.e==='abierta'?'bad':'ok'}">${x.e==='abierta'?ic('alert',12)+'Abierta':ic('check',12)+'Resuelta'}</span>
+    <span class="tag">${esc(x.tipo)}</span><span class="mut" style="font-size:13px">${fmt(x.f)}</span></div>
+    <p style="margin:0">${esc(x.d)}</p>
+    <div class="actions">
+      <button onclick="toggleRec('${x.id}')" aria-label="${x.e==='abierta'?'Marcar resuelta':'Reabrir'}" title="${x.e==='abierta'?'Marcar resuelta':'Reabrir'}">${ic(x.e==='abierta'?'check':'undo',18)}</button>
+      <button class="del" onclick="delRec('${x.id}')" aria-label="Eliminar registro" title="Eliminar">${ic('trash',18)}</button>
+    </div></article>`).join('')||'<p class="mut">Sin registros todavía.</p>'}
+  <h3>Notas internas</h3>
+  <textarea rows="2" placeholder="Notas que solo ves tú" oninput="S.notes[CLIENTS[cur].k]=this.value;save()">${esc(S.notes[c.k]||'')}</textarea>`;
+}
+
+function addRec(){
+  if(!curDesc.trim())return toast('Escribe qué ha pasado','alert');
+  const k=CLIENTS[cur].k;
+  (S.reg[k]=S.reg[k]||[]).push({id:uid(),tipo:curTipo,f:curFecha,d:curDesc.trim(),e:'abierta'});
+  curDesc='';save();toast('Registro guardado');render();
+}
+function toggleRec(id){const r=findRec(id);if(r){r.x.e=r.x.e==='abierta'?'resuelta':'abierta';save();toast(r.x.e==='abierta'?'Registro reabierto':'Registro resuelto','undo');render()}}
+function delRec(id){const r=findRec(id);if(r&&confirm('¿Eliminar este registro?')){S.reg[r.k]=S.reg[r.k].filter(x=>x.id!==id);save();toast('Registro eliminado','trash');render()}}
+
+load();render();
+</script></body></html>

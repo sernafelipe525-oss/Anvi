@@ -297,24 +297,29 @@ function seedCli(){
 function syncCli(){CLIENTS.length=0;S.cli.forEach(c=>CLIENTS.push(c))}
 
 let S={reg:{},notes:{},st:{}},view='ruta',prev='ruta',day=defDay(),q='',cur=0,offP='',curTipo='Incidencia',curDesc='',curFecha=today();
+const FAM_TARGETS=[{n:'Estrella Galicia',ou:'cajas',ov:1231},{n:'Tónica',ou:'cajas',ov:114},{n:'Blue',ou:'cajas',ov:59},
+  {n:'Cítricos',ou:'cajas',ov:74},{n:'Tinto de verano',ou:'cajas',ov:44},{n:'Casera',ou:'cajas',ov:31},
+  {n:'Líquidos',ou:'€',ov:5369},{n:'Not Food',ou:'€',ov:850},{n:'Marcas propias',ou:'uds',ov:20},
+  {n:'Vinos y licores',ou:'€',ov:900},{n:'Alimentación',ou:'€',ov:2800}];
+// Makes sure the 11 families exist, whatever data was loaded (local, old backup or Firebase).
+function ensureFams(){
+  let changed=false;
+  FAM_TARGETS.forEach(t=>{
+    let f=S.fam.find(x=>norm(x.n).startsWith(norm(t.n)));
+    if(!f){f={id:'f'+uid(),c:t.n.slice(0,3).toUpperCase(),n:t.n,col:PALETTE[S.fam.length%PALETTE.length]};S.fam.push(f);changed=true}
+    if(!f.ou){f.ou=t.ou;changed=true}
+    if(f.ov===undefined){f.ov=t.ov;changed=true}
+  });
+  if(changed)saveLocal();
+  return changed;
+}
 function load(){
   try{Object.assign(S,JSON.parse(localStorage.getItem('pv1')||'{}'))}catch(e){}
   S.reg=S.reg||{};S.notes=S.notes||{};S.st=S.st||{};S.fb=S.fb||{url:''};S.qty=S.qty||{};S.obj=S.obj||{};S.om=S.om||{};S.hist=S.hist||{};S.real=S.real||{};
   if(!S.fam){S.fam=SEED_FAM.map(x=>({...x}));S.prod=SEED_PROD.map(x=>({...x}));save()}
   S.prod=S.prod||[];
   S.fam.forEach((f,i)=>{if(!f.col)f.col=PALETTE[i%PALETTE.length]});
-  if(!S.migV2){
-    const T=[{n:'Estrella Galicia',ou:'cajas',ov:1231},{n:'Tónica',ou:'cajas',ov:114},{n:'Blue',ou:'cajas',ov:59},
-      {n:'Cítricos',ou:'cajas',ov:74},{n:'Tinto de verano',ou:'cajas',ov:44},{n:'Casera',ou:'cajas',ov:31},
-      {n:'Líquidos',ou:'€',ov:5369},{n:'Not Food',ou:'€',ov:850},{n:'Marcas propias',ou:'uds',ov:20},
-      {n:'Vinos y licores',ou:'€',ov:900},{n:'Alimentación',ou:'€',ov:2800}];
-    T.forEach(t=>{
-      let f=S.fam.find(x=>norm(x.n).startsWith(norm(t.n)));
-      if(!f){f={id:'f'+uid(),c:t.n.slice(0,3).toUpperCase(),n:t.n,col:PALETTE[S.fam.length%PALETTE.length]};S.fam.push(f)}
-      f.ou=t.ou;f.ov=t.ov;
-    });
-    S.migV2=true;save();
-  }
+  ensureFams();
   if(!S.cli){S.cli=seedCli();save()}
   syncCli();
 }
@@ -343,10 +348,10 @@ async function fbPull(){
     const d=await r.json();
     if(!d)return toast('No hay datos guardados en Firebase','alert');
     S.cli=arr(d.cli).map(c=>({...c,o:arr(c.o),days:arr(c.days)}));
-    S.fam=arr(d.fam);S.prod=arr(d.prod);
+    S.fam=arr(d.fam);S.prod=arr(d.prod);ensureFams();
     S.reg=Object.fromEntries(Object.entries(d.reg||{}).map(([k,v])=>[k,arr(v)]));
     S.st=d.st||{};S.qty=d.qty||{};S.obj=d.obj||{};S.om=d.om||{};S.hist=d.hist||{};S.real=d.real||{};S.notes=d.notes||{};S.fbAt=Date.now();S.fbErr=false;
-    syncCli();saveLocal();toast('Datos descargados de Firebase','check');render();
+    syncCli();save();toast('Datos descargados de Firebase','check');render();
   }catch(e){S.fbErr=true;saveLocal();toast('No se pudo conectar con Firebase','alert');render()}
 }
 function fbSave(){
